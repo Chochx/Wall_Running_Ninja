@@ -6,10 +6,28 @@
             "id": "1c1c6622-12f9-4ea5-a5cf-fb51d2e1a4de",
             "actions": [
                 {
-                    "name": "Touch",
+                    "name": "JumpTouch",
                     "type": "Button",
                     "id": "889169ae-c27a-4fdb-aaf1-34948c9d6d52",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "AttackTouch",
+                    "type": "Button",
+                    "id": "18b39dbf-5ccd-47e0-a24a-4d0ec67da6a7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "301677b3-ef3a-46d4-9dc6-6917eb053e61",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -19,11 +37,33 @@
                 {
                     "name": "",
                     "id": "f4285936-3bba-46a2-9d5e-895ffba5c6fb",
-                    "path": "<Touchscreen>/Press",
+                    "path": "<Pointer>/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Touch",
+                    "action": "JumpTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c121c39-7519-4840-b27b-09e21093b213",
+                    "path": "<Pointer>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "001405bb-ae67-4af4-b15f-005d8efd457e",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

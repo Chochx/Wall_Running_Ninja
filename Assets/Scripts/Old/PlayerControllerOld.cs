@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerController : MonoBehaviour
+public class PlayerControllerOld : MonoBehaviour
 {
     [Header("Jump Settings")]
     [SerializeField] private float jumpDuration = 0.5f;

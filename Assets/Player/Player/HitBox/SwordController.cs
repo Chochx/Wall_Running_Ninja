@@ -3,7 +3,6 @@ using UnityEngine;
 public class SwordController : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D swordCollider;
-    [SerializeField] private float damageAmount = 10f;
 
     public event System.Action onEndAnimation;
 
@@ -33,7 +32,7 @@ public class SwordController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && swordCollider.IsTouching(other))
         {
            Destroy(other.gameObject);
         }

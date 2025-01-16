@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (controller.playerHasLanded)
+        if (controller.playerHasLanded && controller.isAlive)
         {
             MoveAndCheckSegments();
         }

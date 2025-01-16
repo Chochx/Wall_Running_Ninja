@@ -1,17 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.Events;
+
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float inputThersholdPoint = 1000;
-    [SerializeField]private Collider2D groundCheckPoint;
+    [SerializeField] private Collider2D groundCheckPoint;
+    [SerializeField] private Collider2D hitBox;
+    [SerializeField] private GameObject deathMenu;
 
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 12f;
@@ -30,11 +27,11 @@ public class PlayerController : MonoBehaviour
     private bool isAttacking;
     private SwordController swordController;
 
-
     private float jumpBufferCounter;
     private float coyoteTimeCounter;
     private int airJumpsLeft;
     private bool canJump => jumpBufferCounter > 0f && (coyoteTimeCounter > 0f || airJumpsLeft > 0);
+    public bool isAlive = true;
     private bool isJumping;
 
     private Animator anim; 
@@ -104,6 +101,7 @@ public class PlayerController : MonoBehaviour
     private void Attack(InputAction.CallbackContext context)
     {
         if (isOverUI) return;
+        if (!isAlive) return;
         Vector2 position = positionAction.ReadValue<Vector2>();
         if (position.x > Screen.width * 0.5f && isGrounded && !isAttacking)
         {
@@ -122,6 +120,7 @@ public class PlayerController : MonoBehaviour
     private void Jump(InputAction.CallbackContext context)
     {
         if (isOverUI) return;
+        if (!isAlive) return;
         Vector2 position = positionAction.ReadValue<Vector2>();
         if (position.x < Screen.width * 0.5f)
         {
@@ -148,6 +147,7 @@ public class PlayerController : MonoBehaviour
     private void HandleAnimations()
     {
         if (isAttacking) return;
+        if (!isAlive) return;
 
         string currentAnimation = GetCurrentAnimation(); 
         anim.Play(currentAnimation);
@@ -244,5 +244,19 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy") && hitBox.IsTouching(collision))
+        {
+            isAlive = false;
+            anim.Play("Death");
+        }
+    }
+
+    private void HandleDeath()
+    {
+        deathMenu.SetActive(true);
     }
 }

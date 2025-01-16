@@ -6,8 +6,11 @@ public class OnDeath : MonoBehaviour
 {
     public GameObject bloodPrefab;
 
-    private void OnDestroy()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+        if (collision.gameObject.CompareTag("Attack"))
+        {
+            Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+        }
     }
 }

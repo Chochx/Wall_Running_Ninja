@@ -613,6 +613,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerHasLanded: 0
 --- !u!95 &450169613
 Animator:
   serializedVersion: 5
@@ -914,6 +915,7 @@ GameObject:
   - component: {fileID: 571484726}
   - component: {fileID: 571484725}
   - component: {fileID: 571484727}
+  - component: {fileID: 571484728}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -982,6 +984,19 @@ MonoBehaviour:
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
+--- !u!114 &571484728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571484723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &722500182
 GameObject:
   m_ObjectHideFlags: 0

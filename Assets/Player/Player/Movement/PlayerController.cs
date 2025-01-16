@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-
-
     [SerializeField] private float inputThersholdPoint = 1000;
     [SerializeField]private Collider2D groundCheckPoint;
 
@@ -21,8 +22,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int maxAirJumps = 0;
     [SerializeField] private float groundCheckDistance = 0.1f;
     [SerializeField] private LayerMask groundLayer;
+    public bool playerHasLanded;
     private bool isGrounded;
     private Vector2 groundCheckOffset;
+
+    [Header ("Attack Settings")]
+    private bool isAttacking;
+    private SwordController swordController;
+
 
     private float jumpBufferCounter;
     private float coyoteTimeCounter;
@@ -32,19 +39,20 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim; 
 
-
     //Private
     private PlayerInput playerInput;
     private InputAction jumpPress;
     private InputAction attackPress;
     private InputAction positionAction;
     private Rigidbody2D rb;
+    private bool isOverUI = false;
 
     // Start is called before the first frame update
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         anim = GetComponent<Animator>();
+        swordController = GetComponent<SwordController>();
         jumpPress = playerInput.actions["JumpTouch"];
         attackPress = playerInput.actions["AttackTouch"];
         positionAction = playerInput.actions["Position"];
@@ -53,7 +61,38 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Application.targetFrameRate = 60; 
+        Application.targetFrameRate = 60;
+        swordController.onEndAnimation += AttackEnded;
+
+        var eventSystem = EventSystem.current;
+        var eventTrigger = eventSystem.GetComponent<EventTrigger>();
+        if (eventTrigger == null)
+        {
+            eventTrigger = eventSystem.gameObject.AddComponent<EventTrigger>();
+        }
+
+        // Create pointer down entry
+        var pointerDown = new EventTrigger.Entry();
+        pointerDown.eventID = EventTriggerType.PointerDown;
+        var downEvent = new EventTrigger.TriggerEvent();
+        downEvent.AddListener((data) => isOverUI = true);
+        pointerDown.callback = downEvent;
+
+        // Create pointer up entry
+        var pointerUp = new EventTrigger.Entry();
+        pointerUp.eventID = EventTriggerType.PointerUp;
+        var upEvent = new EventTrigger.TriggerEvent();
+        upEvent.AddListener((data) => isOverUI = false);
+        pointerUp.callback = upEvent;
+
+        // Add both entries to the trigger
+        eventTrigger.triggers.Add(pointerDown);
+        eventTrigger.triggers.Add(pointerUp);
+    }
+
+    private void AttackEnded()
+    {
+        isAttacking = false;
     }
 
     private void OnEnable()
@@ -64,10 +103,12 @@ public class PlayerController : MonoBehaviour
 
     private void Attack(InputAction.CallbackContext context)
     {
+        if (isOverUI) return;
         Vector2 position = positionAction.ReadValue<Vector2>();
-        if (position.x > Screen.width * 0.5f)
+        if (position.x > Screen.width * 0.5f && isGrounded && !isAttacking)
         {
-            Debug.Log("SLICE!!");
+            isAttacking = true;
+            anim.Play("Attack");
         }
     }
 
@@ -75,16 +116,18 @@ public class PlayerController : MonoBehaviour
     {
         jumpPress.performed -= Jump;
         attackPress.performed -= Attack;
+        swordController.onEndAnimation -= AttackEnded;
     }
 
     private void Jump(InputAction.CallbackContext context)
     {
+        if (isOverUI) return;
         Vector2 position = positionAction.ReadValue<Vector2>();
         if (position.x < Screen.width * 0.5f)
         {
             jumpBufferCounter = jumpBufferTime;
 
-            if (canJump)
+            if (canJump && !isAttacking)
             {
                 ExecuteJump();
             }
@@ -104,19 +147,20 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAnimations()
     {
-        if (rb.velocity.y > 0 && !isGrounded)
+        if (isAttacking) return;
+
+        string currentAnimation = GetCurrentAnimation(); 
+        anim.Play(currentAnimation);
+    }
+
+    private string GetCurrentAnimation()
+    {
+        if (!isGrounded)
         {
-            anim.Play("JumpStart");
-        }
-        if (rb.velocity.y < 0.5f && !isGrounded)
-        {
-            anim.Play("JumpFall");
+            return rb.velocity.y > 0 ? "JumpStart" : "JumpFall";
         }
 
-        if (isGrounded) 
-        { 
-            anim.Play("Run"); 
-        }
+        return "Run"; 
     }
 
     private void GroundCheck()
@@ -189,6 +233,11 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            playerHasLanded = true;
+        }
+
         // Reset jumping state when hitting something above
         if (collision.contacts[0].normal.y < -0.7f)
         {

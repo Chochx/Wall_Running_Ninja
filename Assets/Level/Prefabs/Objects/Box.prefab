@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1842483361236196652}
   - component: {fileID: 8221340239730087026}
   - component: {fileID: 3504900953918413652}
+  - component: {fileID: 1438638308336630817}
   m_Layer: 0
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1438638308336630817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829613514611831593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dffa24f5442de4e9fbd79654bfadc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodPrefab: {fileID: 8812270437254624809, guid: dd6d7bc3ed51b144682172664831b4a1, type: 3}

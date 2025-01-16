@@ -25,10 +25,12 @@ public class LevelManager : MonoBehaviour
     private Camera mainCamera;
     private float spawnPositionX;
     private float despawnPositionX;
+    private PlayerController controller;
 
 
     private void Start()
     {
+        controller = FindFirstObjectByType <PlayerController>();
         mainCamera = Camera.main;
         UpdateScreenBounds();
         SpawnInitialSegment();
@@ -36,7 +38,10 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        MoveAndCheckSegments();
+        if (controller.playerHasLanded)
+        {
+            MoveAndCheckSegments();
+        }
         CheckAndSpawnNewSegment();
     }
 

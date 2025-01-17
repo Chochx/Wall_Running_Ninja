@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "491363990488",
+    "firebase_url": "https://ninjarunner-fed89-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ninjarunner-fed89",
+    "storage_bucket": "ninjarunner-fed89.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491363990488:android:0fbe10781a2fc6031b50ad",
+        "android_client_info": {
+          "package_name": "com.ChosunOne.NinjaRunner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp3wLk63XUj2K6cbDesPKuFPm1RRuIOWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

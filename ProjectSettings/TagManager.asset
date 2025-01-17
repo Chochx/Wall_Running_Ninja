@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Ground
   - Attack
+  - UnbreakableObject
   layers:
   - Default
   - TransparentFX

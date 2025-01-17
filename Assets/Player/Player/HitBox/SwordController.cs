@@ -3,6 +3,7 @@ using UnityEngine;
 public class SwordController : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D swordCollider;
+    [SerializeField] private GameObject bloodPrefab;
 
     public event System.Action onEndAnimation;
 

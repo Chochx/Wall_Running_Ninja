@@ -20,18 +20,30 @@ AnimationClip:
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
+    - time: 0
+      value: {fileID: 1928774865, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - time: 0.041666668
+      value: {fileID: 572950648, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
     - time: 0.083333336
-      value: {fileID: 413947081, guid: 01f10aebda06c1242943874a2f53fac0, type: 3}
+      value: {fileID: 1209110795, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - time: 0.125
+      value: {fileID: -526045433, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
     - time: 0.16666667
-      value: {fileID: 1265016489, guid: 01f10aebda06c1242943874a2f53fac0, type: 3}
+      value: {fileID: 1040632142, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - time: 0.20833333
+      value: {fileID: 1846491690, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
     - time: 0.25
-      value: {fileID: -2128888782, guid: 01f10aebda06c1242943874a2f53fac0, type: 3}
+      value: {fileID: 1602708729, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - time: 0.29166666
+      value: {fileID: -975998772, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - time: 0.33333334
+      value: {fileID: 1490456612, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 12
+  m_SampleRate: 24
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -48,15 +60,21 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 413947081, guid: 01f10aebda06c1242943874a2f53fac0, type: 3}
-    - {fileID: 1265016489, guid: 01f10aebda06c1242943874a2f53fac0, type: 3}
-    - {fileID: -2128888782, guid: 01f10aebda06c1242943874a2f53fac0, type: 3}
+    - {fileID: 1928774865, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - {fileID: 572950648, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - {fileID: 1209110795, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - {fileID: -526045433, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - {fileID: 1040632142, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - {fileID: 1846491690, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - {fileID: 1602708729, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - {fileID: -975998772, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
+    - {fileID: 1490456612, guid: 10148afc00c6c1a4e914b44b04443890, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.33333334
+    m_StopTime: 0.375
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -76,21 +94,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.083333336
+  - time: 0.041666668
     functionName: EnableSwordCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.16666667
+  - time: 0.125
     functionName: DisableSwordCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.25
+  - time: 0.375
     functionName: EndingAnimation
     data: 
     objectReferenceParameter: {fileID: 7400000}

@@ -36,6 +36,7 @@ public class SwordController : MonoBehaviour
         if (other.CompareTag("Enemy") && swordCollider.IsTouching(other))
         {
             Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+            ScoreManager.Instance.OnEnemyKilled();
             Destroy(other.gameObject);
         }
     }

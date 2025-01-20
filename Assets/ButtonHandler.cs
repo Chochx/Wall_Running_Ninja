@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject menuPanel; 
+    
     public void OnPauseButtonPressed()
     {
         Time.timeScale = 0; 
@@ -30,7 +31,18 @@ public class ButtonHandler : MonoBehaviour
         SceneManager.LoadSceneAsync(1);
     }
 
+    public void OnRetryButtonPressed()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadSceneAsync(1);
+    }
+
     public void OnSettingsButtonPressed() 
+    {
+
+    }
+
+    public void OnStatsButtonPressed()
     {
 
     }

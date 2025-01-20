@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using System.Threading.Tasks;
 
 
 public class PlayerController : MonoBehaviour
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
     private InputAction attackPress;
     private InputAction positionAction;
     private Rigidbody2D rb;
-    private bool isOverUI = false;
+    private bool isOverUI = false; 
 
     // Start is called before the first frame update
     void Awake()
@@ -85,6 +86,8 @@ public class PlayerController : MonoBehaviour
         // Add both entries to the trigger
         eventTrigger.triggers.Add(pointerDown);
         eventTrigger.triggers.Add(pointerUp);
+
+        isAlive = true;
     }
 
     private void AttackEnded()
@@ -250,8 +253,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy") && hitBox.IsTouching(collision))
         {
+            Debug.Log($"Enemy Collision Detected - Current Score: {ScoreManager.Instance.TotalScore}");
+
             isAlive = false;
+            playerHasLanded = false;
             anim.Play("Death");
+
+            ScoreManager.Instance.GameOver();
         }
     }
 

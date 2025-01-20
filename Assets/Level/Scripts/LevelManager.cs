@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class LevelManager : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    [SerializeField] private float scrollSpeed = 5f;
+    public float scrollSpeed = 5f;
     [SerializeField] private float spawnOffset = 2f; // Extra units beyond screen edge 
     [SerializeField] private float despawnOffset = -2f; // Extra units beyond screen edge
     [SerializeField] private float yOffset = 0f;

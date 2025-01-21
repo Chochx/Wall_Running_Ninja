@@ -26,11 +26,13 @@ public class AuthManager : MonoBehaviour
     private FirebaseAuth auth;
     private DatabaseReference dbReference;
     private string userId;
+    private bool isInitialized = false;
 
     // Constants
     private const string DEVICE_ID_KEY = "device_id";
 
     // Events that other scripts can subscribe to
+    public event Action OnFirebaseInitialized;
     public event Action<string> OnUserAuthenticated;
     public event Action<string> OnAuthenticationFailed;
 
@@ -45,25 +47,31 @@ public class AuthManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
 
-        InitializeFirebase();
+        InitializeFirebaseAsync();
     }
 
-    private async void InitializeFirebase()
+    private async void InitializeFirebaseAsync()
     {
         try
         {
             // Initialize Firebase
             var dependencyStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
+
             if (dependencyStatus != DependencyStatus.Available)
             {
-                throw new Exception("Could not resolve Firebase dependencies");
+                Debug.LogError($"Could not resolve Firebase dependencies: {dependencyStatus}");
+                OnAuthenticationFailed?.Invoke("Failed to initialize Firebase dependencies");
+                return;
             }
 
             // Get Firebase instances
             auth = FirebaseAuth.DefaultInstance;
             dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-            // Start authentication
+            isInitialized = true;
+            OnFirebaseInitialized?.Invoke();
+
+            // Start authentication only after Firebase is initialized
             await AuthenticateUser();
         }
         catch (Exception e)
@@ -71,6 +79,21 @@ public class AuthManager : MonoBehaviour
             Debug.LogError($"Firebase initialization failed: {e.Message}");
             OnAuthenticationFailed?.Invoke("Failed to initialize Firebase");
         }
+    }
+
+    public bool IsFirebaseInitialized()
+    {
+        return isInitialized;
+    }
+
+    public DatabaseReference GetDatabaseReference()
+    {
+        if (!isInitialized)
+        {
+            Debug.LogError("Trying to access database before Firebase initialization!");
+            return null;
+        }
+        return dbReference;
     }
 
     private async Task AuthenticateUser()

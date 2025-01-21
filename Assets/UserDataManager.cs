@@ -15,17 +15,59 @@ public class UserData
     public int totalGamesPlayed;
     public float totalDistance;
     public int totalEnemiesKilled;
-    public string lastPlayed;
+    public string lastPlayed;        // ISO 8601 format
+    public string dailyBestDate;     // Date of the daily best score
+    public float dailyBestScore;     // Best score for the current day
+    public string weeklyBestDate;    // Date of the weekly best score
+    public float weeklyBestScore;    // Best score for the current week
 
     public UserData(string userId)
     {
         this.userId = userId;
-        this.username = ""; 
+        this.username = "";
         highScore = 0;
         totalGamesPlayed = 0;
         totalDistance = 0;
         totalEnemiesKilled = 0;
-        lastPlayed = DateTime.Now.ToString("O");
+        lastPlayed = DateTime.UtcNow.ToString("O");      // Use UTC time
+        dailyBestDate = DateTime.UtcNow.Date.ToString("O");
+        dailyBestScore = 0;
+        weeklyBestDate = DateTime.UtcNow.Date.ToString("O");
+        weeklyBestScore = 0;
+    }
+
+    public void UpdateTimePeriodBests(float newScore)
+    {
+        DateTime now = DateTime.UtcNow;
+        lastPlayed = now.ToString("O");
+
+        // Update all-time best
+        if (newScore > highScore)
+        {
+            highScore = newScore;
+        }
+
+        // Update daily best
+        DateTime dailyBestDateTime = DateTime.Parse(dailyBestDate);
+        if (dailyBestDateTime.Date != now.Date || newScore > dailyBestScore)
+        {
+            dailyBestDate = now.ToString("O");
+            dailyBestScore = newScore;
+        }
+
+        // Update weekly best
+        DateTime weeklyBestDateTime = DateTime.Parse(weeklyBestDate);
+        if (GetWeekNumber(weeklyBestDateTime) != GetWeekNumber(now) || newScore > weeklyBestScore)
+        {
+            weeklyBestDate = now.ToString("O");
+            weeklyBestScore = newScore;
+        }
+    }
+
+    private int GetWeekNumber(DateTime date)
+    {
+        // Use ISO 8601 week number
+        return System.Globalization.ISOWeek.GetWeekOfYear(date);
     }
 }
 
@@ -44,12 +86,14 @@ public class UserDataManager : MonoBehaviour
             return _instance;
         }
     }
-    public event System.Action<bool> OnUsernameCheckCompleted;
 
     private DatabaseReference dbReference;
     private UserData currentUserData;
     private const int MIN_USERNAME_LENGTH = 3;
     private const int MAX_USERNAME_LENGTH = 20;
+
+    public event System.Action<bool> OnUsernameCheckCompleted;
+    public event Action<UserData> OnUserDataUpdated;
     public enum UsernameCheckResult
     {
         Valid,
@@ -59,7 +103,6 @@ public class UserDataManager : MonoBehaviour
         AlreadyTaken
     }
 
-    public event Action<UserData> OnUserDataUpdated;
 
     private void Awake()
     {
@@ -75,11 +118,14 @@ public class UserDataManager : MonoBehaviour
     }
     private void Start()
     {
-
-        dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-        InitializeFirebaseReferences();
         // Wait for authentication
+        AuthManager.Instance.OnFirebaseInitialized += OnFirebaseInitialized;
         AuthManager.Instance.OnUserAuthenticated += LoadUserData;
+    }
+
+    private void OnFirebaseInitialized()
+    {
+        InitializeFirebaseReferences();
     }
 
     public bool HasUsername()
@@ -287,7 +333,11 @@ private async Task SaveUserData()
     {
         try
         {
-            dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+            dbReference = AuthManager.Instance.GetDatabaseReference();
+            if (dbReference == null)
+            {
+                Debug.LogError("Failed to get database reference from AuthManager");
+            }
         }
         catch (Exception e)
         {
@@ -313,31 +363,32 @@ private async Task SaveUserData()
 
             if (currentUserData == null)
             {
-                // If no existing data, create new user data
                 currentUserData = new UserData(userId);
             }
 
-            // Always update these values
+            // Update general stats
             currentUserData.totalGamesPlayed++;
             currentUserData.totalDistance = Mathf.Max(currentUserData.totalDistance, distance);
             currentUserData.totalEnemiesKilled += enemiesKilled;
 
-            // Update high score if new score is higher
-            if (score > currentUserData.highScore)
-            {
-                currentUserData.highScore = score;
-            }
-
-            // Update last played time
-            currentUserData.lastPlayed = DateTime.Now.ToString("O");
+            // Update time-based scores and timestamps
+            currentUserData.UpdateTimePeriodBests(score);
 
             Debug.Log($"UpdateStats BEFORE SAVE - Current Data: " +
                       $"Games: {currentUserData.totalGamesPlayed}, " +
                       $"Distance: {currentUserData.totalDistance}, " +
                       $"High Score: {currentUserData.highScore}, " +
+                      $"Daily Best: {currentUserData.dailyBestScore}, " +
+                      $"Weekly Best: {currentUserData.weeklyBestScore}, " +
                       $"Enemies: {currentUserData.totalEnemiesKilled}");
 
             await SaveUserData();
+
+            // Notify leaderboard to refresh if it's active
+            if (LeaderboardManager.Instance != null)
+            {
+                await LeaderboardManager.Instance.RefreshLeaderboard(LeaderboardManager.TimeFilter.AllTime);
+            }
         }
         catch (Exception e)
         {

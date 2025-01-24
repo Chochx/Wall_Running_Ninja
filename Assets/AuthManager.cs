@@ -112,6 +112,7 @@ public class AuthManager : MonoBehaviour
             await SaveDeviceMapping(deviceId, userId);
 
             Debug.Log($"Authentication successful. User ID: {userId}");
+            
             OnUserAuthenticated?.Invoke(userId);
         }
         catch (Exception e)

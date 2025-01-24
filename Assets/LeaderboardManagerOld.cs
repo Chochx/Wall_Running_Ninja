@@ -15,7 +15,7 @@ public class LeaderboardEntry
     public int totalEnemiesKilled;
 }
 
-public class LeaderboardManager : MonoBehaviour
+public class LeaderboardManagerOld : MonoBehaviour
 {
     private static LeaderboardManager _instance;
     public static LeaderboardManager Instance
@@ -41,16 +41,16 @@ public class LeaderboardManager : MonoBehaviour
         AllTime
     }
 
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        _instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+    //private void Awake()
+    //{
+    //    if (_instance != null && _instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+    //    _instance = this;
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     private void Start()
     {

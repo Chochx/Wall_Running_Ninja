@@ -39,8 +39,14 @@ public class UsernameFlowManager : MonoBehaviour
         AuthManager.Instance.OnAuthenticationFailed += HandleAuthenticationFailed;
         UserDataManager.Instance.OnUsernameCheckCompleted += HandleUsernameCheck;
 
-        // Initialize UI state - moved to Start to ensure all components are ready
-        InitializeUIState();
+        if (AuthManager.Instance.IsFirebaseInitialized() && UserDataManager.Instance.HasUsername())
+        {
+            ShowMainGame();
+        }
+        else
+        {
+            InitializeUIState();
+        }
     }
 
     private void OnDestroy()
@@ -64,23 +70,11 @@ public class UsernameFlowManager : MonoBehaviour
         usernameInputPanel.SetActive(false);
         mainGameUI.SetActive(false);
         loadingPanel.SetActive(true);  // Show loading while we check state
-
-        // If Firebase is ready, check username immediately
-        if (AuthManager.Instance != null && AuthManager.Instance.IsFirebaseInitialized() && UserDataManager.Instance != null)
-        {
-            string currentUsername = UserDataManager.Instance.GetUsername();
-            HandleUsernameCheck(!string.IsNullOrEmpty(currentUsername));
-        }
     }
 
     private void HandleFirebaseInitialized()
     {
         Debug.Log("Firebase initialized");
-        if (UserDataManager.Instance != null)
-        {
-            string currentUsername = UserDataManager.Instance.GetUsername();
-            HandleUsernameCheck(!string.IsNullOrEmpty(currentUsername));
-        }
     }
 
     private void HandleUserAuthenticated(string userId)

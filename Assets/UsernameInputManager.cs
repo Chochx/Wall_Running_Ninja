@@ -33,9 +33,9 @@ public class UsernameInputManager : MonoBehaviour
             statusText.color = Color.red;
             submitButton.interactable = false;
         }
-        else if (value.Length > 20)
+        else if (value.Length > 10)
         {
-            statusText.text = "Username must be less than 20 characters";
+            statusText.text = "Username must be less than 10 characters";
             statusText.color = Color.red;
             submitButton.interactable = false;
         }

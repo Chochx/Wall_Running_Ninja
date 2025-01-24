@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject menuPanel; 
+    [SerializeField] private GameObject leaderboardPanel;
     
     public void OnPauseButtonPressed()
     {
@@ -45,5 +46,10 @@ public class ButtonHandler : MonoBehaviour
     public void OnStatsButtonPressed()
     {
 
+    }
+
+    public void OnLeaderBoardButtonPressed()
+    {
+        leaderboardPanel.SetActive(!leaderboardPanel.activeSelf);
     }
 }

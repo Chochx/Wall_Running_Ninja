@@ -28,7 +28,7 @@ public class ScoreManager : MonoBehaviour
     [Header("Score Settings")]
     [SerializeField] private float pointsPerMeter = 10f;
     [SerializeField] private float highScoreBonus = 100f;
-    [SerializeField] private float enemyKillBonus = 50f;
+    [SerializeField] private float enemyKillBonus = 1000f;
 
     [Header("Level References")]
     [SerializeField] private LevelManager levelManager;
@@ -222,30 +222,33 @@ public class ScoreManager : MonoBehaviour
 
     private void ResetScore()
     {
-        // Debug to track when and where reset occurs
-        Debug.Log($"ResetScore CALLED - Current State: " +
-                  $"Total Distance: {totalDistanceTraveled}, " +
-                  $"Current Score: {currentScore.totalScore}, " +
-                  $"Enemies Killed: {enemiesKilledThisRun}");
-
-        // Store the current score before resetting
-        float savedTotalScore = currentScore.totalScore;
-        float savedTotalDistance = totalDistanceTraveled;
-        int savedEnemiesKilled = enemiesKilledThisRun;
-
         totalDistanceTraveled = 0f;
         enemiesKilledThisRun = 0;
         currentScore = new PlayerScore();
-
-        // Optionally restore the last run's stats if needed
-        currentScore.totalScore = savedTotalScore;
-        currentScore.distanceScore = savedTotalDistance * pointsPerMeter;
-
         isGameActive = false;
+        //// Debug to track when and where reset occurs
+        //Debug.Log($"ResetScore CALLED - Current State: " +
+        //          $"Total Distance: {totalDistanceTraveled}, " +
+        //          $"Current Score: {currentScore.totalScore}, " +
+        //          $"Enemies Killed: {enemiesKilledThisRun}");
 
-        Debug.Log($"ResetScore AFTER Reset - Saved Score: {savedTotalScore}, " +
-                  $"Saved Distance: {savedTotalDistance}, " +
-                  $"Saved Enemies: {savedEnemiesKilled}");
+        //// Store current score
+        ////float savedTotalScore = currentScore.totalScore;
+        ////float savedTotalDistance = totalDistanceTraveled;
+
+        //// Reset everything
+        //totalDistanceTraveled = 0f;
+        //currentScore = new PlayerScore();
+
+        ////// Restore only some values
+        ////currentScore.totalScore = savedTotalScore;
+        ////currentScore.distanceScore = savedTotalDistance * pointsPerMeter;
+
+        //isGameActive = false;
+
+        ////Debug.Log($"ResetScore AFTER Reset - Saved Score: {savedTotalScore}, " +
+        ////          $"Saved Distance: {savedTotalDistance}, " +
+        ////          $"Saved Enemies: {savedEnemiesKilled}");
     }
 
     public string GetFormattedScore()

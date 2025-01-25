@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Application.targetFrameRate = 60;
         swordController.onEndAnimation += AttackEnded;
 
         var eventSystem = EventSystem.current;

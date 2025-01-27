@@ -43,7 +43,8 @@ public class PlayerController : MonoBehaviour
     private InputAction attackPress;
     private InputAction positionAction;
     private Rigidbody2D rb;
-    private bool isOverUI = false; 
+    private bool isOverUI = false;
+    private float timeUntilHit;
 
     // Start is called before the first frame update
     void Awake()
@@ -138,6 +139,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!playerHasLanded)
+        {
+            timeUntilHit += Time.fixedDeltaTime;
+        }
         GroundCheck();
         ApplyGravityMultiplier();
         HandleJumpBuffer();
@@ -203,7 +208,6 @@ public class PlayerController : MonoBehaviour
         // Reset vertical velocity before jumping for consistency
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
         if (!isGrounded)
         {
             airJumpsLeft--;
@@ -238,6 +242,7 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             playerHasLanded = true;
+            Debug.Log("Time in air before first hit: " + timeUntilHit);
         }
 
         // Reset jumping state when hitting something above

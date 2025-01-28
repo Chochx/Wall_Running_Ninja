@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Collider2D groundCheckPoint;
     [SerializeField] private Collider2D hitBox;
     [SerializeField] private GameObject deathMenu;
+    [SerializeField] private SlashEffect slashEffect;
 
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 12f;
@@ -110,6 +111,7 @@ public class PlayerController : MonoBehaviour
         {
             isAttacking = true;
             anim.Play("Attack");
+            slashEffect.TriggerEffect(new Vector2(22,10), (transform.position - new Vector3(10,10)));
         }
     }
 

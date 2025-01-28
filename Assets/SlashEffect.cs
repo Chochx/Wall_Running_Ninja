@@ -1,0 +1,62 @@
+using UnityEngine;
+
+public class SlashEffect : MonoBehaviour
+{
+    public LineRenderer lineRenderer;
+    public float effectDuration = 0.2f; // Duration of the effect
+    public float initialLength = 10f;  // Initial length of the line
+    public float shrinkSpeed = 5f;    // Speed at which the line shrinks
+
+    private float timer;
+    public bool isEffectActive;
+
+    void Start()
+    {
+        // Ensure the LineRenderer is disabled initially
+        lineRenderer.enabled = false;
+    }
+
+    void Update()
+    {
+        if (isEffectActive)
+        {
+            // Update the timer
+            timer -= Time.deltaTime;
+
+            if (timer > 0)
+            {
+                // Shrink the line over time
+                float currentLength = Mathf.Lerp(0, initialLength, timer / effectDuration);
+                UpdateLineLength(currentLength);
+            }
+            else
+            {
+                // Disable the effect when the timer runs out
+                isEffectActive = false;
+                lineRenderer.enabled = false;
+            }
+        }
+    }
+
+    public void TriggerEffect(Vector2 startPosition, Vector2 direction)
+    {
+        // Set the start and end positions of the line
+        lineRenderer.SetPosition(0, startPosition);
+        lineRenderer.SetPosition(1, startPosition + direction * initialLength);
+
+        // Enable the LineRenderer
+        lineRenderer.enabled = true;
+
+        // Reset the timer and activate the effect
+        timer = effectDuration;
+        isEffectActive = true;
+    }
+
+    private void UpdateLineLength(float length)
+    {
+        // Update the end position of the line to create the shrinking effect
+        Vector2 startPosition = lineRenderer.GetPosition(0);
+        Vector2 direction = (lineRenderer.GetPosition(1) - (Vector3)startPosition).normalized;
+        lineRenderer.SetPosition(1, startPosition + direction * length);
+    }
+}

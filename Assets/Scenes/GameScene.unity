@@ -2602,7 +2602,7 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Positions:
-  - {x: -15.82, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
@@ -2611,8 +2611,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.2640648
+        time: 0.01027298
+        value: 0.10822202
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2691,9 +2691,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 707046848}
-  effectDuration: 0.2
+  effectDuration: 0.14
   initialLength: 50
-  shrinkSpeed: 10.59
+  shrinkSpeed: 31.14
   isEffectActive: 0
 --- !u!1 &722500182
 GameObject:

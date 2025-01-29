@@ -1276,7 +1276,7 @@ Transform:
   m_GameObject: {fileID: 450169606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.2, y: 5.4, z: 0}
+  m_LocalPosition: {x: -17.75, y: 13.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2672,7 +2672,7 @@ Transform:
   m_GameObject: {fileID: 707046847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.8, y: 5.6, z: -10.024644}
+  m_LocalPosition: {x: 18.54, y: 5.66, z: -10.024644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3973,7 +3973,7 @@ GameObject:
   - component: {fileID: 1539482233}
   m_Layer: 0
   m_Name: AttackHitBox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4417,6 +4417,11 @@ MonoBehaviour:
   spawnOffset: 20.89
   despawnOffset: -20.45
   yOffset: 0
+  enemyPrefabs:
+  - {fileID: 1174167189799142114, guid: b87705ebf646ec14c955855b85a8627e, type: 3}
+  minSpawnPoints: 1
+  maxSpawnPoints: 1
+  spawnChance: 1
   basePrefab: {fileID: 7436905953505166696, guid: 0eff4dd285cee5149b9f492ab9288717, type: 3}
   leftFacadePrefab:
   - {fileID: 1602161547793665137, guid: 0c221f30ec49fdb4cbd225b73387547e, type: 3}

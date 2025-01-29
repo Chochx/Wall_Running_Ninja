@@ -9,6 +9,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float despawnOffset = -2f;
     [SerializeField] private float yOffset = 0f;
 
+    [Header ("Enemy Spawn Settings")]
+    [SerializeField] private List <GameObject> enemyPrefabs;
+    [SerializeField] private int minSpawnPoints = 1;
+    [SerializeField] private int maxSpawnPoints = 3;
+    [SerializeField][Range(0f, 1f)] private float spawnChance = 0.7f;
+
     [Header("Building Components")]
     [SerializeField] private GameObject basePrefab;
     [SerializeField] private List <GameObject> leftFacadePrefab;
@@ -57,6 +63,12 @@ public class LevelManager : MonoBehaviour
         baseSection.layer = buildingParent.layer;
         baseSection.tag = buildingParent.tag;
         baseSection.transform.localPosition = Vector3.zero;
+
+        SpawnPointContainer spawnContainer = baseSection.GetComponent<SpawnPointContainer>();
+        if (spawnContainer != null)
+        {
+            SpawnEnemiesOnBase(spawnContainer);
+        }
 
         // Update sprite tiling for width
         SpriteRenderer baseSprite = baseSection.GetComponent<SpriteRenderer>();
@@ -200,6 +212,55 @@ public class LevelManager : MonoBehaviour
     private void OnRectTransformDimensionsChange()
     {
         UpdateScreenBounds();
+    }
+
+    private void SpawnEnemiesOnBase(SpawnPointContainer container)
+    {
+        Debug.Log("trying to spawn enemy");
+        List<SpawnPointContainer.SpawnPointData> availablePoints = new List<SpawnPointContainer.SpawnPointData>(container.spawnPoints);
+        if (container.spawnPoints == null || container.spawnPoints.Length == 0 || enemyPrefabs.Count == 0)
+            return;
+
+        // Create a list of available spawn points
+        
+
+        // Determine how many spawn points to use
+        int numPointsToUse = Random.Range(minSpawnPoints, Mathf.Min(maxSpawnPoints + 1, availablePoints.Count + 1));
+
+        // Randomly select and use spawn points
+        for (int i = 0; i < numPointsToUse; i++)
+        {
+            if (availablePoints.Count == 0) break;
+
+            // Randomly select a spawn point
+            int randomIndex = Random.Range(0, availablePoints.Count);
+            SpawnPointContainer.SpawnPointData selectedPoint = availablePoints[randomIndex];
+            availablePoints.RemoveAt(randomIndex);
+
+            // Check spawn chance (multiplied by point weight)
+            if (Random.value <= spawnChance * selectedPoint.weight)
+            {
+                SpawnEnemyAtPoint(selectedPoint.spawnPoint);
+            }
+        }
+    }
+
+    private void SpawnEnemyAtPoint(Transform spawnPoint)
+    {
+        if (enemyPrefabs != null && enemyPrefabs.Count > 0)
+        {
+            // Randomly select an enemy prefab
+            int randomEnemyIndex = Random.Range(0, enemyPrefabs.Count);
+            GameObject enemyPrefab = enemyPrefabs[randomEnemyIndex];
+
+            // Spawn the enemy at the spawn point position
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+
+            // Parent the enemy to the building so it moves with it
+            enemy.transform.SetParent(spawnPoint.parent.parent);
+
+            Debug.Log("Spawned enemy");
+        }
     }
 
 #if UNITY_EDITOR

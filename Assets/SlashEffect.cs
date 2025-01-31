@@ -54,9 +54,14 @@ public class SlashEffect : MonoBehaviour
 
     private void UpdateLineLength(float length)
     {
-        // Update the end position of the line to create the shrinking effect
-        Vector2 startPosition = lineRenderer.GetPosition(0);
-        Vector2 direction = (lineRenderer.GetPosition(1) - (Vector3)startPosition).normalized;
-        lineRenderer.SetPosition(1, startPosition + direction * length);
+        // Get the end position (this will stay fixed)
+        Vector2 endPosition = lineRenderer.GetPosition(1);
+        Vector2 direction = ( lineRenderer.GetPosition(0) - (Vector3)endPosition).normalized;
+
+        // Calculate new start position by moving from the end position backwards
+        Vector2 newStartPos = endPosition - (direction * length);
+
+        // Update the start position instead of the end position
+        lineRenderer.SetPosition(0, newStartPos);
     }
 }

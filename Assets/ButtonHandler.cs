@@ -35,6 +35,8 @@ public class ButtonHandler : MonoBehaviour
     public void OnRetryButtonPressed()
     {
         Time.timeScale = 1;
+        DifficultyManager.Instance.ResetDifficulty();
+        DifficultyManager.Instance.StartDifficulty();
         SceneManager.LoadSceneAsync(1);
     }
 

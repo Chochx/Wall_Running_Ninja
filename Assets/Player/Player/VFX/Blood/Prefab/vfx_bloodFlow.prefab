@@ -59,7 +59,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 25.2, y: 18.9, z: 0}
+      - m_Value: {x: 25.2, y: 15.96, z: 0}
         m_Name: BloodVelocity
         m_Overridden: 1
     m_Vector4f:
@@ -142,10 +142,10 @@ MonoBehaviour:
     loop: 1
     bloodColor: {r: 1, g: 0, b: 0, a: 1}
   splashSettings:
-    bloodVelocity: {x: 18, y: 28, z: 0}
-    minDropletSize: 2
-    maxDropletSize: 4
-    dropletCount: 85
+    bloodVelocity: {x: 12.6, y: 15.12, z: 0}
+    minDropletSize: 4.1
+    maxDropletSize: 7.4
+    dropletCount: 64
     loop: 0
     bloodColor: {r: 0.6037736, g: 0, b: 0, a: 1}
 --- !u!1 &9019758939493993789

@@ -31,13 +31,5 @@ public class SwordController : MonoBehaviour
         onEndAnimation?.Invoke();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy") && swordCollider.IsTouching(other))
-        {
-            Instantiate(bloodPrefab, transform.position, Quaternion.identity);
-            ScoreManager.Instance.OnEnemyKilled();
-            Destroy(other.gameObject);
-        }
-    }
+    
 }

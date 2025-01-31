@@ -36,6 +36,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        DifficultyManager.Instance.StartDifficulty();
         controller = FindFirstObjectByType<PlayerController>();
         mainCamera = Camera.main;
         UpdateScreenBounds();
@@ -214,9 +215,14 @@ public class LevelManager : MonoBehaviour
         UpdateScreenBounds();
     }
 
+    public void UpdateDifficultyParameters(float newScrollSpeed, float newMinGapSize, float newMaxGapSize)
+    {
+        scrollSpeed = newScrollSpeed;
+        minGapSize = newMinGapSize;
+        maxGapSize = newMaxGapSize;
+    }
     private void SpawnEnemiesOnBase(SpawnPointContainer container)
     {
-        Debug.Log("trying to spawn enemy");
         List<SpawnPointContainer.SpawnPointData> availablePoints = new List<SpawnPointContainer.SpawnPointData>(container.spawnPoints);
         if (container.spawnPoints == null || container.spawnPoints.Length == 0 || enemyPrefabs.Count == 0)
             return;
@@ -258,8 +264,6 @@ public class LevelManager : MonoBehaviour
 
             // Parent the enemy to the building so it moves with it
             enemy.transform.SetParent(spawnPoint.parent.parent);
-
-            Debug.Log("Spawned enemy");
         }
     }
 

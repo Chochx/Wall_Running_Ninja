@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float inputThersholdPoint = 1000;
     [SerializeField] private Collider2D groundCheckPoint;
     [SerializeField] private Collider2D hitBox;
+    [SerializeField] private Collider2D attackHitBox;
     [SerializeField] private GameObject deathMenu;
     [SerializeField] private SlashEffect slashEffect;
 
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour
     private InputAction positionAction;
     private Rigidbody2D rb;
     private bool isOverUI = false;
-    private float timeUntilHit;
+    private float startPosX; 
 
     // Start is called before the first frame update
     void Awake()
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        startPosX = transform.position.x;
         rb = GetComponent<Rigidbody2D>();
         swordController.onEndAnimation += AttackEnded;
 
@@ -111,7 +113,6 @@ public class PlayerController : MonoBehaviour
         {
             isAttacking = true;
             anim.Play("Attack");
-            slashEffect.TriggerEffect(new Vector2(22,10), (transform.position - new Vector3(10,10)));
         }
     }
 
@@ -141,15 +142,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!playerHasLanded)
-        {
-            timeUntilHit += Time.fixedDeltaTime;
-        }
         GroundCheck();
         ApplyGravityMultiplier();
         HandleJumpBuffer();
         HandleCoyoteTime();
-        HandleAnimations(); 
+        HandleAnimations();
+
+        if (transform.position.x < startPosX -1) 
+        {
+            EndGame();
+        }
+
         
     }
 
@@ -244,7 +247,6 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             playerHasLanded = true;
-            Debug.Log("Time in air before first hit: " + timeUntilHit);
         }
 
         // Reset jumping state when hitting something above
@@ -260,12 +262,34 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Enemy") && hitBox.IsTouching(collision))
         {
             Debug.Log($"Enemy Collision Detected - Current Score: {ScoreManager.Instance.TotalScore}");
-
-            isAlive = false;
-            playerHasLanded = false;
-            anim.Play("Death");
+                EndGame();
+            
 
             ScoreManager.Instance.GameOver();
+        }
+
+        if (collision.gameObject.CompareTag("Enemy") && attackHitBox.IsTouching(collision))
+        {
+            Debug.Log("Attack hit");
+            Camera mainCamera = Camera.main;
+
+            // Get enemy position
+            Vector2 enemyPos = collision.transform.position + new Vector3(0,1);
+
+            // Random start position left of the enemy
+            float randomX = Random.Range(enemyPos.x - 20f, enemyPos.x - 10f); // 5-10 units left of enemy
+            float randomY = Random.Range(enemyPos.y - 3f, enemyPos.y + 3f);  // Random height variation
+            Vector2 startPos = new Vector2(randomX, randomY);
+
+            // Calculate direction that ensures we hit the enemy
+            Vector2 direction = (enemyPos - startPos).normalized;
+
+            // Debug log to check values
+            Debug.Log($"Start Position: {startPos}, Enemy Position: {enemyPos}, Direction: {direction}");
+
+            ScoreManager.Instance.OnEnemyKilled(); 
+
+            slashEffect.TriggerEffect(startPos, direction);
         }
     }
 
@@ -273,4 +297,12 @@ public class PlayerController : MonoBehaviour
     {
         deathMenu.SetActive(true);
     }
+    private void EndGame()
+    {
+        isAlive = false;
+        playerHasLanded = false;
+        anim.Play("Death");
+    }
 }
+
+

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class RainController : MonoBehaviour
 {
-    private ParticleSystem _particleSystem;
+    private new ParticleSystem particleSystem;
     private DifficultyManager difficultyManager;
+    [SerializeField] private PlayerController playerController;
 
     private void Start()
     {
-        _particleSystem = GetComponent<ParticleSystem>();
+        particleSystem = GetComponent<ParticleSystem>();
         difficultyManager = DifficultyManager.Instance;
 
         UpdateRainVelocity();
@@ -22,13 +23,18 @@ public class RainController : MonoBehaviour
 
     private void UpdateRainVelocity()
     {
-        if (difficultyManager != null) return;
+        if (difficultyManager == null) return;
         
-        var velocityModule = _particleSystem.velocityOverLifetime;
+        var velocityModule = particleSystem.velocityOverLifetime;
         velocityModule.enabled = true;
 
-        float rainSpeed = difficultyManager.CurrentScrollSpeed;
+        float rainSpeed = difficultyManager.currentScrollSpeed*1.2f;
 
-        velocityModule.x = new ParticleSystem.MinMaxCurve(-rainSpeed, -rainSpeed); 
+        velocityModule.x = new ParticleSystem.MinMaxCurve(-rainSpeed-10, -rainSpeed); 
+
+        if (!playerController.isAlive)
+        {
+            velocityModule.x = new ParticleSystem.MinMaxCurve(0, 0);
+        }
     }
 }

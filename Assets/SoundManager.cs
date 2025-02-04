@@ -10,7 +10,10 @@ public enum SoundType
     LAND,
     FOOTSTEPS,
     HURT,
-    HURTENEMY
+    HURTENEMY,
+    SLASHHITENEMY,
+    SLASHHIT,
+    END
 }
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
 public class SoundManager : MonoBehaviour

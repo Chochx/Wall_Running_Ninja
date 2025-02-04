@@ -28,7 +28,7 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private DifficultyParameters parameters;
     [SerializeField] private LevelManager levelManager; // Reference to level manager
 
-    private float currentScrollSpeed;
+    public float currentScrollSpeed;
     private float currentMinGapSize;
     private float currentMaxGapSize;
     private float gameTime;

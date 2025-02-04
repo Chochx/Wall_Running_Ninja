@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float inputThersholdPoint = 1000;
     [SerializeField] private Collider2D groundCheckPoint;
     [SerializeField] private Collider2D hitBox;
     [SerializeField] private Collider2D attackHitBox;
     [SerializeField] private GameObject deathMenu;
     [SerializeField] private SlashEffect slashEffect;
+    [SerializeField] private AudioSource musicAudioSrc; 
+    private DifficultyManager difficultyManager;
+
 
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 12f;
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        difficultyManager = DifficultyManager.Instance;
         startPosX = transform.position.x;
         rb = GetComponent<Rigidbody2D>();
         swordController.onEndAnimation += AttackEnded;
@@ -147,13 +150,26 @@ public class PlayerController : MonoBehaviour
         HandleJumpBuffer();
         HandleCoyoteTime();
         HandleAnimations();
+        HandleAnimationRunSpeed(); 
 
-        if (transform.position.x < startPosX -1) 
+        if (transform.position.x < startPosX -1 || transform.position.y < -10) 
         {
+            if (!isAlive) return;
             EndGame();
         }
+    }
 
-        
+    private void HandleAnimationRunSpeed()
+    {
+        if (difficultyManager == null) return;
+
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("Run"))
+        {
+            float speedRation = difficultyManager.currentScrollSpeed * 0.05f;
+            anim.SetFloat("SpeedMultiplier", speedRation);
+        }
     }
 
     private void HandleAnimations()
@@ -284,9 +300,6 @@ public class PlayerController : MonoBehaviour
             // Calculate direction that ensures we hit the enemy
             Vector2 direction = (enemyPos - startPos).normalized;
 
-            // Debug log to check values
-            Debug.Log($"Start Position: {startPos}, Enemy Position: {enemyPos}, Direction: {direction}");
-
             ScoreManager.Instance.OnEnemyKilled(); 
 
             slashEffect.TriggerEffect(startPos, direction);
@@ -302,6 +315,8 @@ public class PlayerController : MonoBehaviour
         isAlive = false;
         playerHasLanded = false;
         anim.Play("Death");
+        musicAudioSrc.Stop();
+        SoundManager.PlaySound(SoundType.END, 0.3f);
     }
 }
 

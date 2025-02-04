@@ -163,6 +163,8 @@ public class ScoreManager : MonoBehaviour
         enemiesKilledThisRun++;
         OnKillsUpdated(enemiesKilledThisRun);
         AddBonus(enemyKillBonus);
+
+        Debug.Log("Enemy killed added: " + enemyKillBonus + " points");
     }
 
     public void AddBonus(float amount)

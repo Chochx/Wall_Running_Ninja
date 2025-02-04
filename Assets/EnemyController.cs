@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject bloodPrefab;
     [SerializeField] private GameObject bloodSpawnPoint;
 
+    private Animator animator;
+
     private CameraShake cameraShake;
 
     public bool gameIsPaused; 
@@ -16,6 +18,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         hitBox = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
         cameraShake = Camera.main.GetComponent<CameraShake>();
     }
 
@@ -25,6 +28,12 @@ public class EnemyController : MonoBehaviour
         {
             
             StartCoroutine(FrameFreezeOnHit());
+            animator.Play("Hurt"); 
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            animator.Play("Attack");
         }
     }
 
@@ -37,7 +46,7 @@ public class EnemyController : MonoBehaviour
         bloodSplashObject.transform.SetParent(transform);
         var bloodSplash = bloodSplashObject.GetComponentInChildren<BloodSprayController>();
         bloodSplash.TriggerSplashSpray();
-        yield return new WaitForSecondsRealtime(0.025f);
+        yield return new WaitForSecondsRealtime(0.05f);
         bloodSplash.TriggerFlowSpray();
         hitBox.enabled = false;
         Time.timeScale = 1;

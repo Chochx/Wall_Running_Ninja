@@ -43,7 +43,7 @@ Shader "Custom/GreyscaleShader"
                 {
                     fixed4 col = tex2D(_MainTex, i.uv);
                     float grey = dot(col.rgb, float3(0.299, 0.587, 0.114));
-                    float threshold = 0.35; 
+                    float threshold = 0.33; 
                     float bw = (grey > threshold) ? 1.0 : 0.0; // 1.0 for white, 0.0 for black
                     // col.rgb = float3(bw, bw, bw);
                     return fixed4(bw, bw, bw, col.a);

@@ -43,7 +43,7 @@ public class EnemyController : MonoBehaviour
 
         cameraShake.TriggerShake();
         var bloodSplashObject = Instantiate(bloodPrefab, bloodSpawnPoint.transform.position, Quaternion.identity);
-        bloodSplashObject.transform.SetParent(transform);
+        bloodSplashObject.transform.SetParent(bloodSpawnPoint.transform);
         var bloodSplash = bloodSplashObject.GetComponentInChildren<BloodSprayController>();
         bloodSplash.TriggerSplashSpray();
         yield return new WaitForSecondsRealtime(0.05f);

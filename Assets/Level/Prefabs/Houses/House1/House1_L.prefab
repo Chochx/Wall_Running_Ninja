@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2793553185060894942}
   - component: {fileID: 6797813368235514626}
-  - component: {fileID: 8961819171777505794}
+  - component: {fileID: 284381169764544912}
   m_Layer: 0
   m_Name: House1_L
   m_TagString: Untagged
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8961819171777505794
-PolygonCollider2D:
+--- !u!61 &284381169764544912
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,7 +117,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1.0215602, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 1, y: 0.5}
@@ -127,32 +127,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -2.05, y: 6.8}
-      - {x: -2.1000001, y: 6.65}
-      - {x: -1.75, y: 5.7000003}
-      - {x: -3.45, y: 5.2000003}
-      - {x: -3.65, y: 5}
-      - {x: -3.75, y: 4.3}
-      - {x: -3.6000001, y: 3.45}
-      - {x: -3.95, y: 3.15}
-      - {x: -3.6000001, y: 2.5}
-      - {x: -3.25, y: 1.3000001}
-      - {x: -4.85, y: 0.85}
-      - {x: -5.25, y: 0.7}
-      - {x: -5.25, y: 0.4}
-      - {x: -5.1, y: -0.4}
-      - {x: -5.25, y: -0.85}
-      - {x: -5.25, y: -1.4}
-      - {x: -4.9, y: -2}
-      - {x: -4.2000003, y: -2.25}
-      - {x: -3.25, y: -2.3}
-      - {x: -3.25, y: -4.7000003}
-      - {x: -5, y: -5.1}
-      - {x: -5.25, y: -5.55}
-      - {x: -4.9500003, y: -6.35}
-      - {x: -4.4500003, y: -6.8}
-      - {x: 0, y: -6.8}
-      - {x: 0, y: 6.8}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Size: {x: 2.0431204, y: 13.6}
+  m_EdgeRadius: 0

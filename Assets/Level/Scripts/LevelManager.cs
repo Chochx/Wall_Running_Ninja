@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<float> buildingPosY;
     [SerializeField] private float minBuildingWidth = 20f;
     [SerializeField] private float maxBuildingWidth = 50f;
+    [SerializeField] private GameObject rainDropSplashObject; 
 
     [Header("Gap Settings")]
     [SerializeField] private float minGapSize = 2f;
@@ -85,11 +86,21 @@ public class LevelManager : MonoBehaviour
             baseCollider.size = baseSprite.size;
         }
 
+        
+
         // Get the actual width after scaling
         float actualWidth = baseSection.GetComponent<BoxCollider2D>().bounds.size.x;
-        int setRandomBuildingNr = Random.Range(0, 4);
+
+        //Spawn raindrop splash effect on ground.
+        Vector3 rainSplashSpawnPos = baseCollider.bounds.center + new Vector3(0, baseCollider.bounds.extents.y, 0);
+        GameObject rainSplash = Instantiate(rainDropSplashObject, buildingParent.transform);
+        rainSplash.transform.position = rainSplashSpawnPos;
+        var rainSplashVFX = rainSplash.GetComponent<ParticleSystem>();
+        var rainSplashScale = rainSplashVFX.shape;
+        rainSplashScale.scale = new Vector3(actualWidth + 2, 0, 0);
 
         // Spawn facades
+        int setRandomBuildingNr = Random.Range(0, leftFacadePrefab.Count);
         GameObject leftFacade = Instantiate(leftFacadePrefab[setRandomBuildingNr], buildingParent.transform);
         GameObject rightFacade = Instantiate(rightFacadePrefab[setRandomBuildingNr], buildingParent.transform);
 
@@ -146,7 +157,6 @@ public class LevelManager : MonoBehaviour
             if ((int)previousBuildingHeight == buildingPosY[0])
             {
                 newSpawnPosY = Random.Range(0, 2);
-                Debug.Log("new pos: " + newSpawnPosY);
             }
             else if ((int)previousBuildingHeight == buildingPosY[1])
             {

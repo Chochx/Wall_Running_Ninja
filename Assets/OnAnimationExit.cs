@@ -9,7 +9,7 @@ public class OnAnimationExit : StateMachineBehaviour
     
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        controller = FindAnyObjectByType<SwordController>();
+        controller = FindFirstObjectByType<SwordController>();
         controller.DisableSwordCollider();
     }
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7873324178462759753}
   - component: {fileID: 5999251708392421993}
-  - component: {fileID: 4937089782339732789}
+  - component: {fileID: 5855949346799318800}
   m_Layer: 0
   m_Name: House2_L
   m_TagString: Untagged
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &4937089782339732789
-PolygonCollider2D:
+--- !u!61 &5855949346799318800
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,7 +117,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1.0555646, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 1, y: 0.5}
@@ -127,41 +127,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -2.15, y: 6.8}
-      - {x: -2.1372743, y: 6.550852}
-      - {x: -1.8010839, y: 6.2733173}
-      - {x: -0.94872713, y: 6.273143}
-      - {x: -0.9262525, y: 5.3093185}
-      - {x: -2.9844513, y: 3.3538942}
-      - {x: -3.2158413, y: 3.338565}
-      - {x: -3.384911, y: 3.4581609}
-      - {x: -3.6963778, y: 3.1442537}
-      - {x: -3.3071606, y: 2.7791011}
-      - {x: -1.6258588, y: 2.777358}
-      - {x: -3.767069, y: 0.7094405}
-      - {x: -3.989196, y: 0.74710494}
-      - {x: -4.1478777, y: 0.8984765}
-      - {x: -4.512586, y: 0.7014366}
-      - {x: -4.5417237, y: 0.4194254}
-      - {x: -4.032011, y: 0.016552113}
-      - {x: -2.5320115, y: 0.017988872}
-      - {x: -2.5348845, y: -1.9068395}
-      - {x: -3.7631555, y: -3.0329301}
-      - {x: -4.2212057, y: -2.883448}
-      - {x: -4.532227, y: -3.1721632}
-      - {x: -4.5330625, y: -3.3848386}
-      - {x: -4.2415624, y: -3.6373217}
-      - {x: -4.05247, y: -3.7850344}
-      - {x: -2.9841535, y: -3.8020017}
-      - {x: -3.811316, y: -4.503685}
-      - {x: -4.1921654, y: -4.3717856}
-      - {x: -4.5066, y: -4.5919876}
-      - {x: -4.561149, y: -4.8255153}
-      - {x: -4.088729, y: -5.2118063}
-      - {x: -2.532355, y: -5.2435045}
-      - {x: -2.553622, y: -6.827827}
-      - {x: 0, y: -6.8}
-      - {x: 0, y: 6.8}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Size: {x: 2.1111293, y: 13.6}
+  m_EdgeRadius: 0

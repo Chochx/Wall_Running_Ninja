@@ -13,9 +13,8 @@ public class DifficultyParameters
     public float baseMaxGapSize = 6f;
     public float minGapSizeLimit = 2f;
     public float maxGapSizeLimit = 4f;
-    public float gapSizeDecreaseRate = 0.05f; // Units per second
+    public float gapSizeIncreaseRate = 0.05f; // Units per second
 
-    // You can add more parameters here as needed
     public float difficultyMultiplier = 1f;
     public float maxDifficultyMultiplier = 2f;
     public float difficultyRampUpTime = 300f; // Time in seconds to reach max difficulty
@@ -173,7 +172,7 @@ public class DifficultyManager : MonoBehaviour
 
     private void OnDistanceUpdated(float distance)
     {
-        // You could add additional difficulty modifications based on distance here
+        // Add difficulty modifications based on distance here??
         // For example, adding sudden difficulty spikes at certain milestones
     }
 

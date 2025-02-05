@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
     private bool isOverUI = false;
     private float startPosX; 
 
-    // Start is called before the first frame update
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -118,7 +117,6 @@ public class PlayerController : MonoBehaviour
             anim.Play("Attack");
         }
     }
-
     private void OnDisable()
     {
         jumpPress.performed -= Jump;
@@ -142,7 +140,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         GroundCheck();
@@ -196,7 +193,6 @@ public class PlayerController : MonoBehaviour
         groundCheckOffset = new Vector2(groundCheckPoint.bounds.center.x, groundCheckPoint.bounds.min.y);
         if (groundCheckPoint != null)
         {
-            // Option 1: Using Raycast
             RaycastHit2D hit = Physics2D.Raycast(
                 groundCheckOffset,
                 Vector2.down,

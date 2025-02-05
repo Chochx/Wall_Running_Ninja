@@ -87,7 +87,6 @@ public class UsernameFlowManager : MonoBehaviour
     {
         Debug.LogError($"Authentication failed: {error}");
         loadingPanel.SetActive(false);
-        // You might want to show an error UI here
     }
 
     public void HandleUsernameCheck(bool hasUsername)

@@ -87,7 +87,7 @@ public class LevelManager : MonoBehaviour
 
         // Get the actual width after scaling
         float actualWidth = baseSection.GetComponent<BoxCollider2D>().bounds.size.x;
-        int setRandomBuildingNr = Random.Range(0, 3);
+        int setRandomBuildingNr = Random.Range(0, 4);
 
         // Spawn facades
         GameObject leftFacade = Instantiate(leftFacadePrefab[setRandomBuildingNr], buildingParent.transform);

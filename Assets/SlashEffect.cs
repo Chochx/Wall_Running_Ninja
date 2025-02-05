@@ -3,9 +3,9 @@ using UnityEngine;
 public class SlashEffect : MonoBehaviour
 {
     public LineRenderer lineRenderer;
-    public float effectDuration = 0.2f; // Duration of the effect
-    public float initialLength = 10f;  // Initial length of the line
-    public float shrinkSpeed = 5f;    // Speed at which the line shrinks
+    public float effectDuration = 0.2f; 
+    public float initialLength = 10f;  
+    public float shrinkSpeed = 5f;
 
     private float timer;
     public bool isEffectActive;
@@ -44,10 +44,8 @@ public class SlashEffect : MonoBehaviour
         lineRenderer.SetPosition(0, startPosition);
         lineRenderer.SetPosition(1, startPosition + direction * initialLength);
 
-        // Enable the LineRenderer
         lineRenderer.enabled = true;
 
-        // Reset the timer and activate the effect
         timer = effectDuration;
         isEffectActive = true;
     }

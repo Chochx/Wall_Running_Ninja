@@ -189,11 +189,9 @@ public class AuthManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogWarning($"Failed to store device mapping: {e.Message}");
-            // Non-critical error, so we continue
+            // Non-critical error, we can continue from here
         }
     }
-
-    // Public methods for other scripts to use
 
     public string GetUserId()
     {

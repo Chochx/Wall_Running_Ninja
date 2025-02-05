@@ -100,7 +100,6 @@ public class ScoreManager : MonoBehaviour
             playerController = FindFirstObjectByType<PlayerController>();
         }
 
-        // Reset game state
         StartNewGame();
     }
 
@@ -122,7 +121,6 @@ public class ScoreManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // Unsubscribe to prevent memory leaks
         UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 

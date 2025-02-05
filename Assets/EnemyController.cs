@@ -46,7 +46,9 @@ public class EnemyController : MonoBehaviour
         bloodSplashObject.transform.SetParent(bloodSpawnPoint.transform);
         var bloodSplash = bloodSplashObject.GetComponentInChildren<BloodSprayController>();
         bloodSplash.TriggerSplashSpray();
+
         yield return new WaitForSecondsRealtime(0.05f);
+
         bloodSplash.TriggerFlowSpray();
         hitBox.enabled = false;
         Time.timeScale = 1;

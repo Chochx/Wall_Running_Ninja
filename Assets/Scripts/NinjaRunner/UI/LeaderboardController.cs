@@ -92,7 +92,7 @@ public class LeaderboardController : MonoBehaviour
     
     private void GetChildrenOfThisObject(List<GameObject> entries)
     {
-       children.Clear();
+        children.Clear();
         foreach (GameObject entry in entries)
         {
             children.Add(entry.transform);

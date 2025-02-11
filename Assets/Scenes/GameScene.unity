@@ -2186,7 +2186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &563736037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8423,6 +8423,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28566551b172a1c429f7f63e7fc536fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySpawnParameters:
+    baseSpawnSpacing: 6
+    maxSpawnSpacing: 10
+    baseEnemySpawnChance: 3
+    maxEnemySpawnChance: 0
   enemyPrefab: {fileID: 1174167189799142114, guid: b87705ebf646ec14c955855b85a8627e, type: 3}
 --- !u!1 &1139370016
 GameObject:
@@ -8721,7 +8726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1287933263
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     public bool gameIsPaused; 
 
     private Collider2D hitBox;
+    private bool isDying; 
 
     private void Start()
     {
@@ -26,12 +27,12 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Sword"))
         {
-            
+            isDying = true;
             StartCoroutine(FrameFreezeOnHit());
             animator.Play("Hurt"); 
         }
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (!isDying && collision.gameObject.CompareTag("Player"))
         {
             animator.Play("Attack");
         }
@@ -49,8 +50,8 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.05f);
 
-        bloodSplash.TriggerFlowSpray();
         hitBox.enabled = false;
+        bloodSplash.TriggerFlowSpray();
         Time.timeScale = 1;
 
         yield return new WaitForSecondsRealtime(0.01f);

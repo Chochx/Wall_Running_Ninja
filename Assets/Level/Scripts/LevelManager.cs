@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager instance {  get; private set; }
+
     [Header("Spawn Settings")]
     public float scrollSpeed = 5f;
     [SerializeField] private float spawnOffset = 2f;
@@ -34,14 +37,33 @@ public class LevelManager : MonoBehaviour
     private float spawnPositionX;
     private float despawnPositionX;
     private PlayerController controller;
+    private int previousLevel = 0;
+    private int currentLevel = 0;
+
+    public event UnityAction <GameObject, float> onBuildingSpawned;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else { Destroy(gameObject); }
+    }
 
     private void Start()
     {
         DifficultyManager.Instance.StartDifficulty();
+        DifficultyManager.Instance.OnNextLevelReached += OnLevelIncreased;
         controller = FindFirstObjectByType<PlayerController>();
         mainCamera = Camera.main;
         UpdateScreenBounds();
         SpawnInitialBuilding();
+    }
+
+    private void OnLevelIncreased(int nextLevel)
+    {
+        currentLevel = nextLevel;
     }
 
     private void Update()
@@ -66,12 +88,6 @@ public class LevelManager : MonoBehaviour
         baseSection.tag = buildingParent.tag;
         baseSection.transform.localPosition = Vector3.zero;
 
-        SpawnPointContainer spawnContainer = baseSection.GetComponent<SpawnPointContainer>();
-        if (spawnContainer != null)
-        {
-            SpawnEnemiesOnBase(spawnContainer);
-        }
-
         // Update sprite tiling for width
         SpriteRenderer baseSprite = baseSection.GetComponent<SpriteRenderer>();
         if (baseSprite != null)
@@ -86,8 +102,6 @@ public class LevelManager : MonoBehaviour
             baseCollider.size = baseSprite.size;
         }
 
-        
-
         // Get the actual width after scaling
         float actualWidth = baseSection.GetComponent<BoxCollider2D>().bounds.size.x;
 
@@ -100,7 +114,7 @@ public class LevelManager : MonoBehaviour
         rainSplashScale.scale = new Vector3(actualWidth + 2, 0, 0);
 
         // Spawn facades
-        int setRandomBuildingNr = Random.Range(0, leftFacadePrefab.Count);
+        int setRandomBuildingNr = 4;
         GameObject leftFacade = Instantiate(leftFacadePrefab[setRandomBuildingNr], buildingParent.transform);
         GameObject rightFacade = Instantiate(rightFacadePrefab[setRandomBuildingNr], buildingParent.transform);
 
@@ -114,6 +128,7 @@ public class LevelManager : MonoBehaviour
         rightFacade.transform.localPosition = new Vector3(actualWidth * 0.5f, 0, 0);
 
         activeBuildings.Add(buildingParent);
+        onBuildingSpawned?.Invoke(baseSection, actualWidth);
     }
 
     private void SpawnInitialBuilding()
@@ -143,33 +158,50 @@ public class LevelManager : MonoBehaviour
     {
         if (activeBuildings.Count == 0 || ShouldSpawnNewBuilding())
         {
-            float buildingWidth = Random.Range(minBuildingWidth, maxBuildingWidth);
-            float gapSize = (Random.value < gapChance && activeBuildings.Count > 0) ?
-                Random.Range(minGapSize, maxGapSize) : 0f;
-
-            float spawnX = CalculateNextSpawnPosition() + (buildingWidth * 0.5f) + gapSize;
-
-            int previousBuilding = activeBuildings.Count - 1;
-            float previousBuildingHeight = activeBuildings[previousBuilding].transform.position.y;
-
-            int newSpawnPosY;
             
-            if ((int)previousBuildingHeight == buildingPosY[0])
-            {
-                newSpawnPosY = Random.Range(0, 2);
-            }
-            else if ((int)previousBuildingHeight == buildingPosY[1])
-            {
-                newSpawnPosY = Random.Range(0, 3);
-            }
-            else 
-            {
-                newSpawnPosY = Random.Range(0, 3);
-            }
 
-            Vector3 spawnPosition = new Vector3(spawnX, buildingPosY[newSpawnPosY], 0);
+            
+            if (currentLevel != previousLevel)
+            {
+                float buildingWidth = 500;
+                float gapSize = (Random.value < gapChance && activeBuildings.Count > 0) ?
+                    Random.Range(minGapSize, maxGapSize) : 0f;
 
-            SpawnBuilding(spawnPosition, buildingWidth);
+                float spawnX = CalculateNextSpawnPosition() + (buildingWidth * 0.5f) + gapSize;
+
+                Vector3 spawnPosition = new Vector3(spawnX, buildingPosY[0], 0);
+
+                SpawnBuilding(spawnPosition, buildingWidth);
+                previousLevel = currentLevel;
+            }
+            else
+            {
+                float buildingWidth = Random.Range(minBuildingWidth, maxBuildingWidth);
+                float gapSize = (Random.value < gapChance && activeBuildings.Count > 0) ?
+                    Random.Range(minGapSize, maxGapSize) : 0f;
+
+                float spawnX = CalculateNextSpawnPosition() + (buildingWidth * 0.5f) + gapSize;
+
+                int previousBuilding = activeBuildings.Count - 1;
+                float previousBuildingHeight = activeBuildings[previousBuilding].transform.position.y;
+
+                int newSpawnPosY;
+
+                if ((int)previousBuildingHeight == buildingPosY[0])
+                {
+                    newSpawnPosY = Random.Range(0, 2);
+                }
+                else if ((int)previousBuildingHeight == buildingPosY[1])
+                {
+                    newSpawnPosY = Random.Range(0, 3);
+                }
+                else
+                {
+                    newSpawnPosY = Random.Range(0, 3);
+                }
+                Vector3 spawnPosition = new Vector3(spawnX, buildingPosY[newSpawnPosY], 0);
+                SpawnBuilding(spawnPosition, buildingWidth);
+            }
         }
     }
 
@@ -231,51 +263,51 @@ public class LevelManager : MonoBehaviour
         minGapSize = newMinGapSize;
         maxGapSize = newMaxGapSize;
     }
-    private void SpawnEnemiesOnBase(SpawnPointContainer container)
-    {
-        List<SpawnPointContainer.SpawnPointData> availablePoints = new List<SpawnPointContainer.SpawnPointData>(container.spawnPoints);
-        if (container.spawnPoints == null || container.spawnPoints.Length == 0 || enemyPrefabs.Count == 0)
-            return;
+    //private void SpawnEnemiesOnBase(SpawnPointContainer container)
+    //{
+    //    List<SpawnPointContainer.SpawnPointData> availablePoints = new List<SpawnPointContainer.SpawnPointData>(container.spawnPoints);
+    //    if (container.spawnPoints == null || container.spawnPoints.Length == 0 || enemyPrefabs.Count == 0)
+    //        return;
 
-        // Create a list of available spawn points
+    //    // Create a list of available spawn points
         
 
-        // Determine how many spawn points to use
-        int numPointsToUse = Random.Range(minSpawnPoints, Mathf.Min(maxSpawnPoints + 1, availablePoints.Count + 1));
+    //    // Determine how many spawn points to use
+    //    int numPointsToUse = Random.Range(minSpawnPoints, Mathf.Min(maxSpawnPoints + 1, availablePoints.Count + 1));
 
-        // Randomly select and use spawn points
-        for (int i = 0; i < numPointsToUse; i++)
-        {
-            if (availablePoints.Count == 0) break;
+    //    // Randomly select and use spawn points
+    //    for (int i = 0; i < numPointsToUse; i++)
+    //    {
+    //        if (availablePoints.Count == 0) break;
 
-            // Randomly select a spawn point
-            int randomIndex = Random.Range(0, availablePoints.Count);
-            SpawnPointContainer.SpawnPointData selectedPoint = availablePoints[randomIndex];
-            availablePoints.RemoveAt(randomIndex);
+    //        // Randomly select a spawn point
+    //        int randomIndex = Random.Range(0, availablePoints.Count);
+    //        SpawnPointContainer.SpawnPointData selectedPoint = availablePoints[randomIndex];
+    //        availablePoints.RemoveAt(randomIndex);
 
-            // Check spawn chance (multiplied by point weight)
-            if (Random.value <= spawnChance * selectedPoint.weight)
-            {
-                SpawnEnemyAtPoint(selectedPoint.spawnPoint);
-            }
-        }
-    }
+    //        // Check spawn chance (multiplied by point weight)
+    //        if (Random.value <= spawnChance * selectedPoint.weight)
+    //        {
+    //            SpawnEnemyAtPoint(selectedPoint.spawnPoint);
+    //        }
+    //    }
+    //}
 
-    private void SpawnEnemyAtPoint(Transform spawnPoint)
-    {
-        if (enemyPrefabs != null && enemyPrefabs.Count > 0)
-        {
-            // Randomly select an enemy prefab
-            int randomEnemyIndex = Random.Range(0, enemyPrefabs.Count);
-            GameObject enemyPrefab = enemyPrefabs[randomEnemyIndex];
+    //private void SpawnEnemyAtPoint(Transform spawnPoint)
+    //{
+    //    if (enemyPrefabs != null && enemyPrefabs.Count > 0)
+    //    {
+    //        // Randomly select an enemy prefab
+    //        int randomEnemyIndex = Random.Range(0, enemyPrefabs.Count);
+    //        GameObject enemyPrefab = enemyPrefabs[randomEnemyIndex];
 
-            // Spawn the enemy at the spawn point position
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+    //        // Spawn the enemy at the spawn point position
+    //        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
 
-            // Parent the enemy to the building so it moves with it
-            enemy.transform.SetParent(spawnPoint.parent.parent);
-        }
-    }
+    //        // Parent the enemy to the building so it moves with it
+    //        enemy.transform.SetParent(spawnPoint.parent.parent);
+    //    }
+    //}
 
 #if UNITY_EDITOR
     private void OnValidate()

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8705995327095872365}
   - component: {fileID: 1399586340106401764}
   - component: {fileID: 1933017927891095608}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnemyPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -68,10 +68,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0049114823, y: 1.0215869}
+  m_Offset: {x: 0.0050139427, y: 0.78999686}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1.55, y: 1.7}
     newSize: {x: 1.55, y: 1.7}
     adaptiveTilingThreshold: 0.5
@@ -79,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6954886, y: 1.9430027}
+  m_Size: {x: 0.7021055, y: 1.4136558}
   m_EdgeRadius: 0
 --- !u!114 &8705995327095872365
 MonoBehaviour:

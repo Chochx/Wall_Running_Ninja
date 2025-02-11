@@ -33,6 +33,7 @@ public class ScoreManager : MonoBehaviour
     [Header("Level References")]
     [SerializeField] private LevelManager levelManager;
     private PlayerController playerController;
+    private int currentLevelId = 0; 
 
     // Game state
     private float totalDistanceTraveled = 0f;
@@ -46,6 +47,7 @@ public class ScoreManager : MonoBehaviour
     public event UnityAction<float> OnDistanceUpdated;
     public event UnityAction<float> OnScoreUpdated;
     public event UnityAction<float> OnHighScoreAchieved;
+    
     public event UnityAction<int> OnKillsUpdated; 
 
     // Properties
@@ -60,7 +62,6 @@ public class ScoreManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -154,6 +155,8 @@ public class ScoreManager : MonoBehaviour
 
         OnDistanceUpdated?.Invoke(totalDistanceTraveled);
         OnScoreUpdated?.Invoke(currentScore.totalScore);
+
+       
     }
 
     public void OnEnemyKilled()

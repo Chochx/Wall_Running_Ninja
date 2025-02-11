@@ -121,7 +121,6 @@ public class UserDataManager : MonoBehaviour
         // Wait for authentication
         AuthManager.Instance.OnFirebaseInitialized += OnFirebaseInitialized;
         AuthManager.Instance.OnUserAuthenticated += LoadUserData;
-        Application.targetFrameRate = 120;
     }
 
     private void OnFirebaseInitialized()

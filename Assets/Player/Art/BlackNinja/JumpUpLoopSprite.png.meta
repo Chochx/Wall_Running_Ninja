@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 10148afc00c6c1a4e914b44b04443890
+guid: f07dc564495aa4b4b8d33218ecbd954c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Attacking_0
+      name: JumpUpLoopSprite_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,20 +131,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8993005d249d2f241a1712916a653c08
-      internalID: 1928774865
+      spriteID: dd5c4eb2a0835a9479a9f0f3a9f1b1cb
+      internalID: -113334886
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attacking_1
+      name: JumpUpLoopSprite_1
       rect:
         serializedVersion: 2
         x: 128
@@ -152,161 +152,14 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebcd4c1abb5e7034f8247f0568fe6524
-      internalID: 572950648
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_2
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f1744f002a4cad34d8096d87b34eda92
-      internalID: 1209110795
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_3
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: acd2c0228abf78d4890fe0b353f9fa8b
-      internalID: -526045433
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_4
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0dea57caf4e1a1b40a61734d916e486f
-      internalID: 1040632142
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_5
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4883a13bad2abd64988a698193a727a3
-      internalID: 1846491690
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_6
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae58c57ebc38927429ad622f227ee64d
-      internalID: 1602708729
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_7
-      rect:
-        serializedVersion: 2
-        x: 896
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 305466f21956df34abf54a938f2f3053
-      internalID: -975998772
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_8
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cf5ebb9f2a158b5408a30112c738ea03
-      internalID: 1475055458
+      spriteID: ff8de049c357bbd488d8bbb8f0685f51
+      internalID: 478872576
       vertices: []
       indices: 
       edges: []
@@ -322,15 +175,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Attacking_0: 1928774865
-      Attacking_1: 572950648
-      Attacking_2: 1209110795
-      Attacking_3: -526045433
-      Attacking_4: 1040632142
-      Attacking_5: 1846491690
-      Attacking_6: 1602708729
-      Attacking_7: -975998772
-      Attacking_8: 1475055458
+      JumpUpLoopSprite_0: -113334886
+      JumpUpLoopSprite_1: 478872576
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

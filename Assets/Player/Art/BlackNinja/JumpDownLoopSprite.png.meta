@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 10148afc00c6c1a4e914b44b04443890
+guid: 1a7766fb36888134ca6dfb133c884f2a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Attacking_0
+      name: JumpDownLoopSprite_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,20 +131,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8993005d249d2f241a1712916a653c08
-      internalID: 1928774865
+      spriteID: 246ad28d30f70a540abd36128941a6e9
+      internalID: -1872040583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attacking_1
+      name: JumpDownLoopSprite_1
       rect:
         serializedVersion: 2
         x: 128
@@ -152,20 +152,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebcd4c1abb5e7034f8247f0568fe6524
-      internalID: 572950648
+      spriteID: bad99242d939db74fbcd12e62f428874
+      internalID: -1935981245
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attacking_2
+      name: JumpDownLoopSprite_2
       rect:
         serializedVersion: 2
         x: 256
@@ -173,20 +173,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1744f002a4cad34d8096d87b34eda92
-      internalID: 1209110795
+      spriteID: da398b84005f3384093bec3830c6ae99
+      internalID: 1728235490
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attacking_3
+      name: JumpDownLoopSprite_3
       rect:
         serializedVersion: 2
         x: 384
@@ -194,119 +194,14 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: acd2c0228abf78d4890fe0b353f9fa8b
-      internalID: -526045433
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_4
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0dea57caf4e1a1b40a61734d916e486f
-      internalID: 1040632142
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_5
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4883a13bad2abd64988a698193a727a3
-      internalID: 1846491690
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_6
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae58c57ebc38927429ad622f227ee64d
-      internalID: 1602708729
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_7
-      rect:
-        serializedVersion: 2
-        x: 896
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 305466f21956df34abf54a938f2f3053
-      internalID: -975998772
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Attacking_8
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cf5ebb9f2a158b5408a30112c738ea03
-      internalID: 1475055458
+      spriteID: 9681833ccc7fa7d48ac9429c46cfd9f8
+      internalID: 2063268973
       vertices: []
       indices: 
       edges: []
@@ -322,15 +217,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Attacking_0: 1928774865
-      Attacking_1: 572950648
-      Attacking_2: 1209110795
-      Attacking_3: -526045433
-      Attacking_4: 1040632142
-      Attacking_5: 1846491690
-      Attacking_6: 1602708729
-      Attacking_7: -975998772
-      Attacking_8: 1475055458
+      JumpDownLoopSprite_0: -1872040583
+      JumpDownLoopSprite_1: -1935981245
+      JumpDownLoopSprite_2: 1728235490
+      JumpDownLoopSprite_3: 2063268973
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

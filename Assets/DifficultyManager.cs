@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 [Serializable]
 public class DifficultyParameters
@@ -32,7 +33,9 @@ public class DifficultyManager : MonoBehaviour
     private float currentMaxGapSize;
     private float gameTime;
     private bool isDifficultyActive;
-
+    private int currentLevelId = 0;
+    private int lastKm = 0;
+    public event UnityAction<int> OnNextLevelReached;
     public float CurrentScrollSpeed => currentScrollSpeed;
     public float CurrentMinGapSize => currentMinGapSize;
     public float CurrentMaxGapSize => currentMaxGapSize;
@@ -42,7 +45,6 @@ public class DifficultyManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -172,8 +174,15 @@ public class DifficultyManager : MonoBehaviour
 
     private void OnDistanceUpdated(float distance)
     {
-        // Add difficulty modifications based on distance here??
-        // For example, adding sudden difficulty spikes at certain milestones
+        int currentKm = (int)(distance / 1000);
+
+        if (currentKm > lastKm)
+        {
+            Debug.Log("Invoking next Level...");
+            currentLevelId++;
+            OnNextLevelReached?.Invoke(currentLevelId);
+            lastKm = currentKm;
+        }
     }
 
     public float GetCurrentDifficultyPercentage()

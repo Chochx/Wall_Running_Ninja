@@ -28,6 +28,7 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private DifficultyParameters parameters;
     [SerializeField] private LevelManager levelManager; // Reference to level manager
 
+    public float maxScrollSpeed;
     public float currentScrollSpeed;
     private float currentMinGapSize;
     private float currentMaxGapSize;
@@ -114,6 +115,7 @@ public class DifficultyManager : MonoBehaviour
 
     private void InitializeDifficulty()
     {
+        maxScrollSpeed = parameters.maxScrollSpeed;
         ResetDifficulty();
     }
 

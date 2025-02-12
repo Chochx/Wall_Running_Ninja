@@ -7,8 +7,8 @@ using UnityEngine;
 [Serializable]
 public class EnemySpawnParameters
 {
-    public float baseSpawnSpacing = 6f;
-    public float maxSpawnSpacing = 10;
+    public float baseSpawnSpacing = 4f;
+    public float maxSpawnSpacing = 10f;
     public int baseEnemySpawnChance = 3;
     public int maxEnemySpawnChance = 0; 
 }
@@ -17,10 +17,11 @@ public class EnemySpawnParameters
 public class EnemySpawnManager : MonoBehaviour
 {
     public static EnemySpawnManager Instance { get; private set; }
+    private DifficultyParameters difficultyParameters;
     [SerializeField] EnemySpawnParameters enemySpawnParameters;
     [SerializeField] private GameObject enemyPrefab; 
     private List<Vector3> spawnPoints = new List<Vector3>();
-    private float currentSpawnSpacing;
+    [SerializeField]private float currentSpawnSpacing;
     private float currentEnemySpawnChance;
     
 
@@ -41,25 +42,31 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
         LevelManager.instance.onBuildingSpawned += GenerateSpawnPoints;
+        difficultyParameters = new DifficultyParameters();
     }
 
-    private void Update()
-    {
-        
-    }
-
+ 
     private void GenerateSpawnPoints(GameObject parentBuilding, float buildingWidth)
     {
+        float normalizedScrollSpeed = DifficultyManager.Instance.currentScrollSpeed / DifficultyManager.Instance.maxScrollSpeed;
+        currentSpawnSpacing = Mathf.Lerp(enemySpawnParameters.baseSpawnSpacing, enemySpawnParameters.maxSpawnSpacing, normalizedScrollSpeed);
         Collider2D buildingCollider = parentBuilding.GetComponent<Collider2D>();
         float buildingTop = buildingCollider.bounds.extents.y;
         Vector3 centerSpawnReference = buildingCollider.bounds.center + new Vector3(0, buildingTop, 0);
 
-        for (float i = -buildingWidth/2; i < buildingWidth/2; i+=10) 
+        for (float i = -buildingWidth/2; i < buildingWidth/2; i+= currentSpawnSpacing) 
         {
             spawnPoints.Add(new Vector3(i, 0, 0));
         }
-        System.Random rand = new System.Random();
-        var randomSpawnPoints = spawnPoints.Where(n => rand.Next(3) == 0).ToList();
+
+        float spawnChance;
+        if (buildingWidth > 400)
+        {
+            spawnChance = 0.45f;
+        }
+        else spawnChance = 0.25f;
+
+        var randomSpawnPoints = spawnPoints.Where(n => UnityEngine.Random.value < spawnChance).ToList();
 
         foreach (Vector3 randomSpawnPoint in randomSpawnPoints)
         {
@@ -68,6 +75,8 @@ public class EnemySpawnManager : MonoBehaviour
         }
         spawnPoints.Clear();
     }
+
+    
 
     private void OnDisable()
     {

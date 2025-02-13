@@ -83,4 +83,9 @@ public class LeaderboardUIManager : MonoBehaviour
     {
         leaderboardPanel.SetActive(false);
     }
+
+    public void RefreshLeaderboardScore()
+    {
+        RefreshLeaderboard();
+    }
 }

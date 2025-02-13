@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private GameObject bloodPrefab;
     [SerializeField] private GameObject bloodSpawnPoint;
+    [SerializeField] private GameObject scorePrefab;
 
     private Animator animator;
 
@@ -53,6 +54,9 @@ public class EnemyController : MonoBehaviour
         hitBox.enabled = false;
         bloodSplash.TriggerFlowSpray();
         Time.timeScale = 1;
+
+        GameObject scoreText = Instantiate(scorePrefab,transform.position + new Vector3(0,1,0), Quaternion.identity);
+        Destroy(scoreText, 3);
 
         yield return new WaitForSecondsRealtime(0.01f);
 

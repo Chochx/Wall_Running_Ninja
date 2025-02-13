@@ -7,6 +7,7 @@ public class ButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject menuPanel; 
     [SerializeField] private GameObject leaderboardPanel;
+    private LeaderboardUIManager leaderboardUIManager;
     
     public void OnPauseButtonPressed()
     {

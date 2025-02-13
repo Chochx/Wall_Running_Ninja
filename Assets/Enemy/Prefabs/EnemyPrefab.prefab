@@ -95,6 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodPrefab: {fileID: 9019758939493993789, guid: dedf61665066daa4bb88df08b708709e, type: 3}
   bloodSpawnPoint: {fileID: 6000468960918420299}
+  scorePrefab: {fileID: 4570205687838485184, guid: 00ffaa6106731d5468c49bfd09b5f73b, type: 3}
   gameIsPaused: 0
 --- !u!95 &1399586340106401764
 Animator:

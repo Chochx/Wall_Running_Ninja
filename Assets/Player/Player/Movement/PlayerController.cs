@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         swordController.onEndAnimation += AttackEnded;
         isAlive = true;
-
+        MusicManager.PlayMusic(MusicType.MAINMUSIC, 0.2f);
     }
 
     public void AttackEnded()
@@ -356,8 +356,8 @@ public class PlayerController : MonoBehaviour
         isAlive = false;
         playerHasLanded = false;
         anim.Play("Death");
-        musicAudioSrc.Stop();
-        SoundManager.PlaySound(SoundType.END, 0.3f);
+        MusicManager.StopMusic();
+        SoundManager.PlaySound(SoundType.END, 0.1f);
     }
 }
 

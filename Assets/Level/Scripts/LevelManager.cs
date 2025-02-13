@@ -158,9 +158,7 @@ public class LevelManager : MonoBehaviour
     {
         if (activeBuildings.Count == 0 || ShouldSpawnNewBuilding())
         {
-            
 
-            
             if (currentLevel != previousLevel)
             {
                 float buildingWidth = 500;

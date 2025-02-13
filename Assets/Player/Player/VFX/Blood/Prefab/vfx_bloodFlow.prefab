@@ -147,7 +147,7 @@ MonoBehaviour:
     maxDropletSize: 7.4
     dropletCount: 64
     loop: 0
-    bloodColor: {r: 0.6037736, g: 0, b: 0, a: 1}
+    bloodColor: {r: 0.7169812, g: 0, b: 0, a: 1}
 --- !u!1 &9019758939493993789
 GameObject:
   m_ObjectHideFlags: 0

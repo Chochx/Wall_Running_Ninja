@@ -13,7 +13,7 @@ public enum SoundType
     HURTENEMY,
     SLASHHITENEMY,
     SLASHHIT,
-    END
+    END,
 }
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
 public class SoundManager : MonoBehaviour

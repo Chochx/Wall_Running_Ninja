@@ -45,7 +45,7 @@ public class TogglePP : MonoBehaviour
             if (isPlayerAligned)
             {
                 volume.enabled = true;
-                MusicManager.PlayMusic(MusicType.REDLEVEL, 0.5f);
+                MusicManager.PlayMusic(MusicType.REDLEVEL, 1f);
                 
             }
             else

@@ -11,14 +11,24 @@ public class LeaderboardUIManager : MonoBehaviour
     [SerializeField] private GameObject entryPrefab;
     [SerializeField] private TMP_Dropdown filterDropdown;
     [SerializeField] private TextMeshProUGUI playerRankText;
+    [SerializeField] private TextMeshProUGUI playerUsername;
+
+    private LeaderboardManager.TimeFilter currentFilter = LeaderboardManager.TimeFilter.Daily;
 
     public event Action<List<GameObject>> OnLeaderBoardUpdated;
-
+    
     private void Start()
     {
         InitializeDropdown();
+        DisplayUsername();
         LeaderboardManager.Instance.OnLeaderboardUpdated += UpdateLeaderboardUI;
-        RefreshLeaderboard();
+        
+        RefreshLeaderboard(currentFilter);
+    }
+
+    private void DisplayUsername()
+    {
+        playerUsername.text = $"User: {UserDataManager.Instance.GetUsername()}";
     }
 
     private void InitializeDropdown()
@@ -36,6 +46,7 @@ public class LeaderboardUIManager : MonoBehaviour
 
     public async void RefreshLeaderboard(LeaderboardManager.TimeFilter filter = LeaderboardManager.TimeFilter.AllTime)
     {
+        currentFilter = filter;
         await LeaderboardManager.Instance.RefreshLeaderboard(filter);
     }
 
@@ -76,7 +87,7 @@ public class LeaderboardUIManager : MonoBehaviour
     public void Show()
     {
         leaderboardPanel.SetActive(true);
-        RefreshLeaderboard();
+        RefreshLeaderboard(currentFilter);
     }
 
     public void Hide()
@@ -86,6 +97,6 @@ public class LeaderboardUIManager : MonoBehaviour
 
     public void RefreshLeaderboardScore()
     {
-        RefreshLeaderboard();
+        RefreshLeaderboard(currentFilter);
     }
 }

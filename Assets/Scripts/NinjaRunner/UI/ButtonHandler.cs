@@ -7,7 +7,7 @@ public class ButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject menuPanel; 
     [SerializeField] private GameObject leaderboardPanel;
-    private LeaderboardUIManager leaderboardUIManager;
+    [SerializeField] private LeaderboardUIManager leaderboardUIManager;
     
     public void OnPauseButtonPressed()
     {
@@ -53,6 +53,6 @@ public class ButtonHandler : MonoBehaviour
 
     public void OnLeaderBoardButtonPressed()
     {
-        leaderboardPanel.SetActive(!leaderboardPanel.activeSelf);
+        leaderboardUIManager.Show();
     }
 }

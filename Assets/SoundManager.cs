@@ -14,6 +14,8 @@ public enum SoundType
     SLASHHITENEMY,
     SLASHHIT,
     END,
+    SCOREPOINT,
+    BLOOD
 }
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
 public class SoundManager : MonoBehaviour

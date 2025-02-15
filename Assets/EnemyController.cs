@@ -55,6 +55,8 @@ public class EnemyController : MonoBehaviour
         bloodSplash.TriggerFlowSpray();
         Time.timeScale = 1;
 
+        SoundManager.PlaySound(SoundType.BLOOD, 0.1f);
+        SoundManager.PlaySound(SoundType.SCOREPOINT, 0.3f);
         GameObject scoreText = Instantiate(scorePrefab,transform.position + new Vector3(0,1,0), Quaternion.identity);
         Destroy(scoreText, 3);
 

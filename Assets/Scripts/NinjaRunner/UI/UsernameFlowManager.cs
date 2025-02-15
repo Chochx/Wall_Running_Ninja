@@ -6,6 +6,7 @@ public class UsernameFlowManager : MonoBehaviour
     [SerializeField] private GameObject usernameInputPanel;
     [SerializeField] private GameObject mainGameUI;
     [SerializeField] private GameObject loadingPanel;
+    [SerializeField] private GameObject welcomeText;
 
     private static UsernameFlowManager _instance;
 
@@ -111,12 +112,14 @@ public class UsernameFlowManager : MonoBehaviour
         usernameInputPanel.SetActive(false);
         loadingPanel.SetActive(false);
         mainGameUI.SetActive(true);
+        welcomeText.SetActive(true);
     }
 
     public void ShowUsernameInput()
     {
         Debug.Log("Showing username input UI");
         mainGameUI.SetActive(false);
+        welcomeText.SetActive(false);
         loadingPanel.SetActive(false);
         usernameInputPanel.SetActive(true);
     }

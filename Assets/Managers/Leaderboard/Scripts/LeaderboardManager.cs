@@ -161,7 +161,7 @@ public class LeaderboardManager : MonoBehaviour
     public int GetCurrentUserRank(List<LeaderboardEntry> entries)
     {
         string currentUserId = AuthManager.Instance.GetUserId();
-        var userEntry = entries.FirstOrDefault(e => e.userId == currentUserId);
+        var userEntry = entries.FirstOrDefault(n => n.userId == currentUserId);
         return userEntry?.rank ?? -1;
     }
 }

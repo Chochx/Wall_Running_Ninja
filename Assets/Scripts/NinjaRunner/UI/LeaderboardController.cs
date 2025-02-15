@@ -107,7 +107,7 @@ public class LeaderboardController : MonoBehaviour
         hasUpdatedLeaderboard = true;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         leaderboardUiManager.OnLeaderBoardUpdated -= GetChildrenOfThisObject;
     }

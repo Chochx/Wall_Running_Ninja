@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
         if (context.control.path.Contains("Keyboard"))
         {
             jumpBufferCounter = jumpBufferTime;
-            if ((coyoteTimeCounter > 0f || airJumpsLeft > 0))
+            if (canJump)
             {
                 ExecuteJump();
             }
@@ -312,13 +312,11 @@ public class PlayerController : MonoBehaviour
         // Reset vertical velocity before jumping for consistency
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        if (!isGrounded)
+        if (!isGrounded && coyoteTimeCounter <= 0)
         {
             airJumpsLeft--;
         }
 
-        coyoteTimeCounter = 0f;
-        jumpBufferCounter = 0f;
         isJumping = true;
     }
     private void HandleJumpBuffer()

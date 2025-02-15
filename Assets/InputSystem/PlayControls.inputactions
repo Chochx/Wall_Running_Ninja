@@ -38,6 +38,28 @@
                 },
                 {
                     "name": "",
+                    "id": "e886f4c7-6cce-474b-ad3d-7dfacf8038ec",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "573589f7-03f5-49c1-8d19-219432b1d97d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "001405bb-ae67-4af4-b15f-005d8efd457e",
                     "path": "<Touchscreen>/position",
                     "interactions": "",

@@ -108,9 +108,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!isAlive) return;
         Vector2 position = positionAction.ReadValue<Vector2>();
-        
+
         // Now process with updated position
-        if (position.x < Screen.width * 0.5f)
+        if (position.x < Screen.width * 0.5f && !context.control.path.Contains("Keyboard") && !context.control.path.Contains("Mouse"))
         {
             jumpBufferCounter = jumpBufferTime;
             if ((coyoteTimeCounter > 0f || airJumpsLeft > 0))
@@ -118,9 +118,50 @@ public class PlayerController : MonoBehaviour
                 ExecuteJump();
             }
         }
-        else if (position.x > Screen.width * 0.5f)
+        else if (position.x > Screen.width * 0.5f && !context.control.path.Contains("Keyboard") && !context.control.path.Contains("Mouse"))
         {
             // If grounded, attack immediately
+            if (isGrounded && !isAttacking)
+            {
+                ExecuteAttack();
+            }
+            // If in air, check distance to ground
+            else if (isJumping && !isJumpAttacking)
+            {
+                // Cast a ray to check distance to ground
+                RaycastHit2D hit = Physics2D.Raycast(
+                    groundCheckOffset,
+                    Vector2.down,
+                    groundProximityThreshold,
+                    groundLayer
+                );
+
+                // If close to ground, set flag for ground attack
+                if (hit.collider != null)
+                {
+                    Debug.Log("Preloading attack");
+                    wantsToAttack = true;
+                }
+                // If far from ground, do jump attack
+                else
+                {
+                    ExecuteJumpAttack();
+                }
+            }
+        }
+
+        //Handle PC-controlls 
+        if (context.control.path.Contains("Keyboard"))
+        {
+            jumpBufferCounter = jumpBufferTime;
+            if ((coyoteTimeCounter > 0f || airJumpsLeft > 0))
+            {
+                ExecuteJump();
+            }
+        }
+
+        if (context.control.path.Contains("Mouse"))
+        {
             if (isGrounded && !isAttacking)
             {
                 ExecuteAttack();

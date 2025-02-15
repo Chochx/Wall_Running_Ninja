@@ -66,6 +66,7 @@ public class AuthManager : MonoBehaviour
 
             // Get Firebase instances
             auth = FirebaseAuth.DefaultInstance;
+            auth.StateChanged += AuthStateChanged;
             dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
             isInitialized = true;
@@ -78,6 +79,15 @@ public class AuthManager : MonoBehaviour
         {
             Debug.LogError($"Firebase initialization failed: {e.Message}");
             OnAuthenticationFailed?.Invoke("Failed to initialize Firebase");
+        }
+    }
+
+    private void AuthStateChanged(object sender, EventArgs e)
+    {
+        if (auth.CurrentUser != null && string.IsNullOrEmpty(userId))
+        {
+            userId = auth.CurrentUser.UserId;
+            Debug.Log($"Auth state changed. Current user: {userId}");
         }
     }
 
@@ -100,19 +110,20 @@ public class AuthManager : MonoBehaviour
     {
         try
         {
-            // Get the device ID
-            string deviceId = GetDeviceId();
-            Debug.Log($"Device ID: {deviceId}");
+            // Check if we already have a user
+            if (auth.CurrentUser != null)
+            {
+                userId = auth.CurrentUser.UserId;
+                Debug.Log($"Using existing auth. User ID: {userId}");
+                OnUserAuthenticated?.Invoke(userId);
+                return;
+            }
 
-            // Sign in anonymously with Firebase
+            // No existing user, create new anonymous user
             var authResult = await auth.SignInAnonymouslyAsync();
             userId = authResult.User.UserId;
 
-            // Store the device-to-user mapping
-            await SaveDeviceMapping(deviceId, userId);
-
-            Debug.Log($"Authentication successful. User ID: {userId}");
-            
+            Debug.Log($"New authentication successful. User ID: {userId}");
             OnUserAuthenticated?.Invoke(userId);
         }
         catch (Exception e)
@@ -129,26 +140,23 @@ public class AuthManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(deviceId))
         {
-            // Generate new device ID based on platform and available information
+#if UNITY_WEBGL
+            // For web builds, generate a random GUID and store it
+            deviceId = Guid.NewGuid().ToString();
+#elif UNITY_IOS && !UNITY_EDITOR
+            // Use IDFV for iOS
+            deviceId = UnityEngine.iOS.Device.vendorIdentifier;
+#elif UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
+            // For PC builds, use deviceUniqueIdentifier but ensure it's stored
             deviceId = SystemInfo.deviceUniqueIdentifier;
-
-            // If SystemInfo.deviceUniqueIdentifier returns empty or a default value
             if (string.IsNullOrEmpty(deviceId) || deviceId == SystemInfo.unsupportedIdentifier)
             {
-                // Create a composite ID using multiple device characteristics
-                string deviceModel = SystemInfo.deviceModel;
-                string operatingSystem = SystemInfo.operatingSystem;
-                string processorType = SystemInfo.processorType;
-
-                // Combine these values to create a unique identifier
-                string combinedInfo = $"{deviceModel}-{operatingSystem}-{processorType}";
-
-                // Generate a deterministic GUID based on the combined info
-                System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(combinedInfo);
-                byte[] hashBytes = md5.ComputeHash(inputBytes);
-                deviceId = new Guid(hashBytes).ToString();
+                deviceId = Guid.NewGuid().ToString();
             }
+#else
+            // Use deviceUniqueIdentifier for Android and other platforms
+            deviceId = SystemInfo.deviceUniqueIdentifier;
+#endif
 
             // Save the device ID
             PlayerPrefs.SetString(DEVICE_ID_KEY, deviceId);

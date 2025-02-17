@@ -791,7 +791,7 @@ Canvas:
   m_GameObject: {fileID: 227777158}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1273952910}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -4166,9 +4166,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.14
+    y: 0
     width: 1
-    height: 0.7
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -4184,7 +4184,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -7784,19 +7784,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 350019642567639619, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 350019642567639619, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 350019642567639619, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 350019642567639619, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 1586564377805950126, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_Name
@@ -7808,55 +7808,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1976220446827559932, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -255.38914
-      objectReference: {fileID: 0}
-    - target: {fileID: 2655504249362735220, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 44.101562
-      objectReference: {fileID: 0}
-    - target: {fileID: 3480106368211789437, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -62.898438
-      objectReference: {fileID: 0}
-    - target: {fileID: 4444547464773409713, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -93.85156
-      objectReference: {fileID: 0}
-    - target: {fileID: 4444547464773409713, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -18.800781
-      objectReference: {fileID: 0}
-    - target: {fileID: 5278903710529024972, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -48.80078
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558682211965718482, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 120.89844
-      objectReference: {fileID: 0}
-    - target: {fileID: 5620881461498511180, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -89.39844
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753133193570436045, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -38.398438
+      value: -255.90996
       objectReference: {fileID: 0}
     - target: {fileID: 7549512211701742165, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7549512211701742165, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7549512211701742165, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7549512211701742165, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -83.8
       objectReference: {fileID: 0}
     - target: {fileID: 8341023957870963461, guid: f28fe09abea078341ab6184a45451d0e, type: 3}
       propertyPath: m_Pivot.x

@@ -1,9 +1,6 @@
 using Firebase.Database;
 using System;
 using UnityEngine;
-using Firebase;
-using Firebase.Auth;
-using Firebase.Extensions;
 using System.Threading.Tasks;
 
 [Serializable]

@@ -8,6 +8,7 @@ public class ButtonHandler : MonoBehaviour
     [SerializeField] private GameObject menuPanel; 
     [SerializeField] private GameObject leaderboardPanel;
     [SerializeField] private LeaderboardUIManager leaderboardUIManager;
+    [SerializeField] private GameObject settingsPanel;
     
     public void OnPauseButtonPressed()
     {
@@ -43,7 +44,7 @@ public class ButtonHandler : MonoBehaviour
 
     public void OnSettingsButtonPressed() 
     {
-
+        settingsPanel.SetActive(!settingsPanel.activeSelf);
     }
 
     public void OnStatsButtonPressed()

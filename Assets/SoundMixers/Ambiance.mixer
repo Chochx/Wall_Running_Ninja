@@ -17,7 +17,7 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: 5df40548a5b452d4ba7b51082bc10377
-    name: AmbianceVolume
+    name: Volume
   m_AudioMixerGroupViews:
   - guids:
     - 1f2288d0e3b632a479a73e328343d7f4
